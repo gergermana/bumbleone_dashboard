@@ -63,28 +63,15 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
     });
 
     useEffect(() => {
-        // form.reset({
-        //     ...(data
-        //         ? {
-        //             ...data,
-        //             genres: Array.isArray(data.genres)
-        //                 ? data.genres.map((g: any) => typeof g === "object" ? g.id : g)
-        //                 : [],
-        //             studios: Array.isArray(data.studios)
-        //                 ? data.studios.map((s: any) => typeof s === "object" ? s.id : s)
-        //                 : [],
-        //         }
-        //         : {}
-        //     ),
-        // });
+        if (!data) return;
         const defaultGenres = data?.genres?.map((genre: any) => genre.id) ?? [];
         const defaultStudios = data?.studios.map((studio: any) => studio.id) ?? [];
+
         form.reset({ 
             ...data,
             genres: defaultGenres,
             studios: defaultStudios,
         })
-        console.log("i'm render man");
     }, [data]);
 
     const onSubmit = (data: z.infer<typeof AnimeSchema>) => {
