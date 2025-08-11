@@ -87,9 +87,6 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
         console.log("i'm render man");
     }, [data]);
 
-    console.log(data?.genres);
-    console.log(data?.studios);
-
     const onSubmit = (data: z.infer<typeof AnimeSchema>) => {
         console.log(data);
         toast.success('Action completed successfully!', {

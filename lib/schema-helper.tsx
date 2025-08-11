@@ -32,11 +32,24 @@ export const optionalString = (fieldName: string) =>
         .nullable()
     );  
 
+// Required Integer Number
+export const requiredIntegerNumber = (fieldName: string) => 
+    z.preprocess(
+        (val) => {
+            if (val === null) return undefined;
+            return val;
+        },
+        z.number({
+            required_error: `${fieldName} is required`,
+            invalid_type_error: `${fieldName} must be a string`,
+        })
+        .min(0, `${fieldName} must be greater or equal to 0`)
+    );
+
 // Optional Integer Number
 export const optionalIntegerNumber = (fieldName: string) => z
     .number({
-        required_error: `${fieldName} is required`,
-        // invalid_type_error: `${fieldName} must be an integer number`,
+        invalid_type_error: `${fieldName} must be an integer number`,
     })
     .int()
     .min(0, `${fieldName} must be greater or equal to 0`)
