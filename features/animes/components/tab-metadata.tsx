@@ -65,7 +65,7 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
     useEffect(() => {
         if (!data) return;
         const defaultGenres = data?.genres?.map((genre: any) => genre.id) ?? [];
-        const defaultStudios = data?.studios.map((studio: any) => studio.id) ?? [];
+        const defaultStudios = data?.studios?.map((studio: any) => studio.id) ?? [];
 
         form.reset({ 
             ...data,

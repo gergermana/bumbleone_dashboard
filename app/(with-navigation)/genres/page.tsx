@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getGenres } from "@/features/genres/api/genre";
 
-import GenresPageWrapper from "../../features/genres/GenresPageWrapper";
+import GenresPageWrapper from "@/features/genres/GenresPageWrapper";
 import { GENRE_DEFAULT_PARAMS } from "@/configs/genre-config";
 
 export default async function Animes({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
