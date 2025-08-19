@@ -14,14 +14,14 @@ import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { z } from "zod/v3";
+import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
-const Login01Page = () => {
+const Login02Page = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -36,7 +36,8 @@ const Login01Page = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="max-w-xs w-full flex flex-col items-center">
+      <div className="max-w-sm w-full flex flex-col items-center border rounded-lg p-6 shadow-sm">
+        BumbleOne
         <p className="mt-4 text-xl font-bold tracking-tight">
           Log in to Shadcn UI Blocks
         </p>
@@ -154,4 +155,4 @@ const GoogleLogo = () => (
   </svg>
 );
 
-export default Login01Page;
+export default Login02Page;

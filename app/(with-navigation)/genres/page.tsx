@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getGenres } from "@/features/genres/api/genre";
+import { getGenres } from "@/features/genres/genres-api";
 
-import GenresPageWrapper from "@/features/genres/GenresPageWrapper";
+import GenresWrapper from "@/features/genres/GenresWrapper";
 import { GENRE_DEFAULT_PARAMS } from "@/configs/genre-config";
 
 export default async function Animes({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
@@ -24,7 +24,7 @@ export default async function Animes({ searchParams }: { searchParams: Promise<{
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <GenresPageWrapper/>
+              <GenresWrapper/>
           </div>
         </div>
       </div>

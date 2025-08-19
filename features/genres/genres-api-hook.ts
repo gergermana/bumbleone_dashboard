@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getGenres } from "../api/genre";
+import { getGenres } from "./genres-api";
 
 export const useGenres = (page: number, limit: number, search: string, sorting: string) => {
     return useQuery({

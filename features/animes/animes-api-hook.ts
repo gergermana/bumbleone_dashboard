@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllGenres, getAllStudios, getAnimes } from "../api/anime";
+import { getAllGenres, getAllStudios, getAnimes } from "./animes-api";
 
 export const useAnimes = (page: number, limit: number, search: string, sorting: string, animeType: string, animeStatus: string) => {
     return useQuery({

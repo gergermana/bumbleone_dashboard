@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { z } from "zod/v3";
 
-import { useAllGenres, useAllStudios, useAnimes } from "./query-hook/use-animes";
-import { getAnimeColumns } from "./column/anime-columns";
+import { useAllGenres, useAllStudios, useAnimes } from "./animes-api-hook";
+import { getAnimeColumns } from "./animes-columns";
 import { useUpdateParams } from "@/lib/url";
 import { filterItems, ANIME_DEFAULT_PARAMS } from "@/features/animes/config/anime-config";
-import { AnimeSchema } from "./schema/anime-schema";
+import { AnimeSchema } from "./animes-schema";
 
 import { DataTable } from "@/components/data-table";
 import { AnimeEditor } from "./components/anime-editor";

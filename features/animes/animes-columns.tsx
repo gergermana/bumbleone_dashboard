@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table";
-import { AnimeSchema } from "../schema/anime-schema";
+import { AnimeSchema } from "./animes-schema";
 import { z } from "zod/v3";
 
 import { Eye, Layers, ListOrdered, SquarePen, Trash,  } from "lucide-react";
@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-import { animeTypeLabel, animeStatusLabel } from "../schema/anime-schema";
+import { animeTypeLabel, animeStatusLabel } from "./animes-schema";
 
 export const getAnimeColumns = (
     setOpenEditor?: React.Dispatch<React.SetStateAction<boolean>>,

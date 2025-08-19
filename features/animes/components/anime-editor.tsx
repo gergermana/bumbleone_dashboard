@@ -3,9 +3,9 @@
 import { z } from "zod/v3";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-import { AnimeSchema } from "../schema/anime-schema";
-import { GenreSchema } from "@/features/genres/schema/genre-schema";
-import { StudioSchema } from "@/features/studios/schema/studio-schema";
+import { AnimeSchema } from "../animes-schema";
+import { GenreSchema } from "@/features/genres/genres-schema";
+import { StudioSchema } from "@/features/studios/studio-schema";
 
 import { X } from "lucide-react";
 

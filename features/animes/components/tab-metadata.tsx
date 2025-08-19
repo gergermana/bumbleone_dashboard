@@ -7,9 +7,9 @@ import { z } from "zod/v3";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputRenderer } from "@/hooks/input-renderer";
 
-import { AnimeSchema } from "../schema/anime-schema";
-import { GenreSchema } from "@/features/genres/schema/genre-schema";
-import { StudioSchema } from "@/features/studios/schema/studio-schema";
+import { AnimeSchema } from "../animes-schema";
+import { GenreSchema } from "@/features/genres/genres-schema";
+import { StudioSchema } from "@/features/studios/studio-schema";
 import { animeFormInputs } from "../config/anime-config";
 
 import { 

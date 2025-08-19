@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react";
-import { z } from "zod";
-import { GenreSchema } from "@/features/genres/schema/genre-schema";
+import { z } from "zod/v3";
+import { GenreSchema } from "@/features/genres/genres-schema";
 
-import { useGenres } from "@/features/genres/query-hook/use-genres";
-import { getGenresColumns } from "./column/genre-columns";
+import { useGenres } from "./genres-api-hook";
+import { getGenresColumns } from "./genres-columns";
 import { useUpdateParams } from "@/lib/url";
 import { GENRE_DEFAULT_PARAMS } from "@/configs/genre-config";
 
@@ -14,7 +14,7 @@ import { AppDrawer } from "@/components/app-drawer";
 
 export type GenreTypeWithID = z.infer<typeof GenreSchema> & { id: number };
 
-export default function GenresPageWrapper() {
+export default function GenresWrapper() {
     const [openEditor, setOpenEditor] = useState(false);
     const [editorData, setEditorData] = useState<GenreTypeWithID | null>(null);
 

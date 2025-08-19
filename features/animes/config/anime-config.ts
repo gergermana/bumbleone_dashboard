@@ -1,4 +1,4 @@
-import { animeTypeOptions, animeTypeLabel, animeStatusOptions, animeStatusLabel } from "../schema/anime-schema";
+import { animeTypeOptions, animeTypeLabel, animeStatusOptions, animeStatusLabel } from "../animes-schema";
 import { SlidersHorizontal } from "lucide-react";
 
 export const filterItems = [

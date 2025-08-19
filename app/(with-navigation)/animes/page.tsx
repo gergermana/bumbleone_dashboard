@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getAllGenres, getAllStudios, getAnimes } from "@/features/animes/api/anime";
+import { getAllGenres, getAllStudios, getAnimes } from "@/features/animes/animes-api";
 
-import AnimesPageWrapper from "@/features/animes/AnimesPageWrapper";
+import AnimesWrapper from "@/features/animes/AnimesWrapper";
 import { ANIME_DEFAULT_PARAMS } from "@/features/animes/config/anime-config";
 
 export default async function Animes({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
@@ -38,7 +38,7 @@ export default async function Animes({ searchParams }: { searchParams: { [key: s
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <AnimesPageWrapper/>
+              <AnimesWrapper/>
           </div>
         </div>
       </div>

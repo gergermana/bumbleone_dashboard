@@ -23,7 +23,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="flex flex-1 flex-col min-h-full">
+            {children}
+          </div>
           <Toaster position="top-center" />
         </ThemeProvider>
       </body>
