@@ -1,31 +1,33 @@
 "use client";
 
-import { Input } from "@/components/ui/input"
+import { JSX } from "react";
+import { Input } from "@/components/ui/input";
 import { NumberInput } from "@/components/number-input";
 import { Combobox } from "@/components/app-combobox";
 import { ComboboxOptionsType } from "@/components/app-combobox";
+import { InputType } from "@/types/input-type";
 
-interface InputRendererProps {
-    context: string;
-    field: any;
-    type: string;
-    options?: ComboboxOptionsType[];
-}
+export const inputRenderer: Record<
+    InputType,
+    (field: any, label?: string, options?: ComboboxOptionsType[]) => JSX.Element
+> = {
+    readonly: (field) => <Input value={field.value ?? ""} readOnly className="w-full" />,
 
-export function InputRenderer({ context, field, type, options }: InputRendererProps) {
-    switch (type) {
-        case "readonly":
-            return <Input value={field.value} readOnly/> 
-        case "number":
-            return (
-                <NumberInput 
-                    {...field} 
-                    min={0} 
-                />
-            );
-        case "combobox":
-            return <Combobox context={context} field={field} options={options}/>;
-        default:
-            return <Input {...field} type="text"/>
-    }
-}
+    number: (field) => <NumberInput {...field} min={0} />,
+
+    combobox: (field, _label, options) => (
+        <Combobox field={field} options={options} />
+    ),
+
+    email: (field, label) => (
+        <Input {...field} value={field.value ?? ""} type="email" placeholder={label} className="w-full" />
+    ),
+
+    password: (field, label) => (
+        <Input {...field} value={field.value ?? ""} type="password" placeholder={label} className="w-full" />
+    ),
+
+    text: (field, label) => (
+        <Input {...field} value={field.value ?? ""} placeholder={label} className="w-full" />
+    ),
+};

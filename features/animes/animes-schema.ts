@@ -9,7 +9,14 @@ import {
     requiredNumberArray,
 } from "@/lib/schema-helper";
 
-export const animeTypeOptions = ['TV', 'MOVIE', 'OVA', 'SPECIAL', 'SEQUEL'] as const;
+export const animeTypeOptions = {
+    TV: "TV",
+    MOVIE: "MOVIE",
+    OVA: "OVA",
+    SPECIAL: "SPECIAL",
+    SEQUEL: "SEQUEL",
+} as const;
+
 export const animeTypeLabel = {
     MOVIE: "Movie",
     TV: "TV",
@@ -18,7 +25,14 @@ export const animeTypeLabel = {
     SEQUEL: "Sequel",
 }
 
-export const animeStatusOptions = ['UPCOMING', 'ONGOING', 'COMPLETED', 'CANCELLED', 'HIATUS'] as const;
+export const animeStatusOptions = {
+    UPCOMING: "UPCOMING",
+    ONGOING: "ONGOING",
+    COMPLETED: "COMPLETED",
+    CANCELLED: "CANCELLED",
+    HIATUS: "HIATUS",
+} as const;
+
 export const animeStatusLabel = {
     UPCOMING: "Upcoming",
     ONGOING: "Ongoing",
@@ -48,25 +62,3 @@ export const AnimeSchema = z.object({
     createdAt: z.string().readonly(),
     updatedAt: z.string().readonly(),
 });
-
-// export const AnimeSchema = z.object({
-//     id: z.number().readonly(),
-//     anilistId: z.number().optional().nullable(),
-//     franchiseKey: z.string().optional(),
-//     franchiseOrder: z.number().optional().nullable(),
-//     titleEnglish: z.string().min(1, "Title is required"),
-//     slug: z.string().min(1, "Slug is required"),
-//     titleJapanese: z.string().optional(),
-//     titleAlternative: z.array(z.string()).optional(),
-//     aired: z.string().optional(),
-//     premiered: z.string().optional(),
-//     animeType: z.enum(animeTypeOptions, { required_error: "Anime Type is required" }),
-//     animeStatus: z.enum(animeStatusOptions, { required_error: "Anime Status is required" }),
-//     coverImg: z.string().url().optional(),
-//     bannerImg: z.string().url().optional(),
-//     overview: z.string().optional(),
-//     genres: z.array(z.number()).min(1, "At least one genre is required"),
-//     studios: z.array(z.number()).min(1, "At least one studio is required"),
-//     createdAt: z.string(),
-//     updatedAt: z.string(),
-// });

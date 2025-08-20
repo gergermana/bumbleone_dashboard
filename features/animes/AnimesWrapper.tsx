@@ -6,7 +6,7 @@ import { z } from "zod/v3";
 import { useAllGenres, useAllStudios, useAnimes } from "./animes-api-hook";
 import { getAnimeColumns } from "./animes-columns";
 import { useUpdateParams } from "@/lib/url";
-import { filterItems, ANIME_DEFAULT_PARAMS } from "@/features/animes/config/anime-config";
+import { filterItems, ANIME_DEFAULT_PARAMS } from "@/features/animes/animes-config";
 import { AnimeSchema } from "./animes-schema";
 
 import { DataTable } from "@/components/data-table";

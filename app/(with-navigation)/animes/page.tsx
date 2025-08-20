@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 import { getAllGenres, getAllStudios, getAnimes } from "@/features/animes/animes-api";
 
 import AnimesWrapper from "@/features/animes/AnimesWrapper";
-import { ANIME_DEFAULT_PARAMS } from "@/features/animes/config/anime-config";
+import { ANIME_DEFAULT_PARAMS } from "@/features/animes/animes-config";
 
 export default async function Animes({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const queryClient = new QueryClient();

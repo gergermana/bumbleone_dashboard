@@ -5,12 +5,13 @@ import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod/v3";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { InputRenderer } from "@/hooks/input-renderer";
+import { inputRenderer } from "@/hooks/input-renderer";
 
 import { AnimeSchema } from "../animes-schema";
 import { GenreSchema } from "@/features/genres/genres-schema";
 import { StudioSchema } from "@/features/studios/studio-schema";
-import { animeFormInputs } from "../config/anime-config";
+import { animeFormInputs } from "../animes-config";
+import { animesInputs } from "../animes-inputs";
 
 import { 
     Form,
@@ -91,7 +92,7 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1 min-h-0">
                 <ScrollArea className="flex-1 min-h-0">
                     <div className="space-y-3 px-2">
-                        {animeFormInputs.map(input => {
+                        {animesInputs.map(input => {
                             return (
                                 <FormField
                                     key={input.key}
@@ -102,12 +103,7 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
                                             <FormItem>
                                                 <FormLabel>{input.label}</FormLabel>
                                                 <FormControl>
-                                                    <InputRenderer 
-                                                        context={input.label}
-                                                        field={field} 
-                                                        type={input.type} 
-                                                        options={input.key === 'genres' ? GenreOptions : StudioOptions}
-                                                    /> 
+                                                    {inputRenderer[input.type](field, input.label)}
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
