@@ -28,6 +28,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { NavSecondary } from "./nav-secondary"
+import Logo from "./Logo"
 
 // This is sample data.
 const data = {
@@ -107,16 +108,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="offcanvas" {...props}>
         <SidebarHeader>
           <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                asChild
-                className="data-[slot=sidebar-menu-button]:!p-1.5"
-              >
+            <SidebarMenuItem className="flex items-center justify-start">
                 <Link href="#">
-                  <AniPlanetIcon className="w-10 h-10"/>
-                  <span className="text-base font-semibold">AniWorld fansub</span>
+                    <Logo className="w-40 text-primary"/>
                 </Link>
-              </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
