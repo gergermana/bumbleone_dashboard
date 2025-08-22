@@ -30,6 +30,7 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar"
 import { useAppSelector } from "@/store/store-hook"
+import { logout } from "@/features/login/login-api"
 
 export function NavUser({
     user,
@@ -42,6 +43,11 @@ export function NavUser({
     } | null
 }) {
     const { isMobile } = useSidebar();
+
+    const handleLogOut = () => {
+        logout();
+        console.log("You logged out");
+    }
 
     return (
         <SidebarMenu>
@@ -108,7 +114,7 @@ export function NavUser({
 
                         <DropdownMenuSeparator />
 
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleLogOut}>
                             <LogOut />
                             Log out
                         </DropdownMenuItem>

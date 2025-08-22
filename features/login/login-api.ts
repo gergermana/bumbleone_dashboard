@@ -25,6 +25,15 @@ export async function login(params: any) {
     }
 }
 
+export async function logout() {
+    try {
+        const res = await api.post("/auth/logout");
+        return res.data;
+    } catch (err: any) {
+        throw new Error(err);
+    }
+}
+
 export async function profile() {
     try {
         const res = await api.get("/auth/profile");
