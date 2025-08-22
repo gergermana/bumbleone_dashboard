@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod/v3";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import Logo from "@/components/Logo";
+import { Logo } from "@/components/Logo";
 
 import { useLogin } from "@/features/login/login-api-hook";
 
@@ -37,10 +36,10 @@ const Login02Page = () => {
     const { mutate } = useLogin();
 
     const onSubmit = (data: z.infer<typeof loginSchema>) => {
+        console.log(data);
         if (data) {
             mutate(data, {
                 onSuccess: (token, _) => {
-                    localStorage.setItem("access_token", token);
                     router.replace("/");
                 }
             });
@@ -50,7 +49,7 @@ const Login02Page = () => {
     return (
         <div className="min-h-screen flex items-center justify-center">
             <div className="max-w-sm w-full flex flex-col items-center border rounded-lg p-6 shadow-sm">
-                <Logo className="h-[60px] text-primary"/>
+                <Logo className="w-60 text-foreground"/>
 
                 <div className="py-2 w-full flex items-center justify-center overflow-hidden">
                     <Separator />

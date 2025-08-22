@@ -11,7 +11,7 @@ export async function login(params: any) {
             const message = err.response.data?.message || "Something went wrong";
 
             if (status === 401) {
-                throw new Error("Invalid username or password");
+                throw new Error("Invalid email or password");
             } else {
                 throw new Error(message);
             }
@@ -22,5 +22,14 @@ export async function login(params: any) {
             // something wrong in setting up the request
             throw new Error("Request error: " + err.message);
         }
+    }
+}
+
+export async function profile() {
+    try {
+        const res = await api.get("/auth/profile");
+        return res.data;
+    } catch (err) {
+        throw new Error("Profile Fetch Error: " + err);
     }
 }

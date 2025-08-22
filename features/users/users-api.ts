@@ -1,7 +1,7 @@
 import { api } from "@/lib/api";
 
-export async function createUser(params: any) {
-    const res = api.post("/animes", params, {
+export async function getProfile() {
+    const res = api.post("/auth/profile", {
         
     })
 }

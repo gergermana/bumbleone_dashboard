@@ -1,7 +1,5 @@
-import Provider from "../providers";
 import type { Metadata } from "next";
 import "../globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 
@@ -19,30 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <Provider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <SidebarProvider>
-              <AppSidebar variant="inset"/>
-              <SidebarInset>
-                <AppHeader/>
-                <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                  {children} 
-                </main>
-                <Toaster 
-                  position="top-center"
-                />
-              </SidebarInset>
-            </SidebarProvider>
-          </ThemeProvider>
-        </Provider>
-      </body>
-    </html>
+    <SidebarProvider>
+        <AppSidebar variant="inset"/>
+        <SidebarInset>
+        <AppHeader/>
+        <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
+            {children} 
+        </main>
+        </SidebarInset>
+    </SidebarProvider>
   );
 }

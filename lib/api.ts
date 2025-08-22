@@ -4,7 +4,5 @@ const apiBaseUrl = process.env.NEXT_PUBLIC_API_KEY;
 
 export const api = axios.create({
     baseURL: `${apiBaseUrl}`,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+    withCredentials: true,
 });
