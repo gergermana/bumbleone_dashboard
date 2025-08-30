@@ -39,7 +39,7 @@ const Login02Page = () => {
     const onSubmit = async (data: z.infer<typeof loginSchema>) => {
         try {
             await login(data);
-            router.push('/');
+            router.push('/dashboard');
         } catch (error) {
         }
     };

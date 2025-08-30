@@ -2,10 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-    // const token = request.cookies.get('refreshToken')?.value;
-    // console.log(token);
-
-    // const { pathname } = request.nextUrl;
+    const token = request.cookies.get('refreshToken')?.value;
+    const { pathname } = request.nextUrl;
 
     // const publicRoutes = ['/login'];
     // const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
@@ -14,9 +12,9 @@ export function middleware(request: NextRequest) {
     //     return NextResponse.redirect(new URL('/login', request.url));
     // }
 
-    // if (token && pathname === '/login') {
-    //     return NextResponse.redirect(new URL('/', request.url));
-    // } 
+    if (token && pathname === '/login') {
+        return NextResponse.redirect(new URL('/dashboard', request.url));
+    } 
 
     return NextResponse.next();
 }
