@@ -3,33 +3,35 @@
 import { useState } from "react";
 import { z } from "zod/v3";
 
-import { useAllGenres, useAllStudios, useAnimes } from "./animes-api-hook";
-import { getAnimeColumns } from "./animes-columns";
+import { useAnime } from "../hooks/use-anime-queries";
+import { getAnimeColumns } from "../config/columns";
 import { useUpdateParams } from "@/lib/url";
-import { filterItems, ANIME_DEFAULT_PARAMS } from "@/features/animes/animes-config";
-import { AnimeSchema } from "./animes-schema";
+import { filterItems } from "@/features/animes/config/filters";
+import { animeDefaultParams } from "../config/constants";
+import { AnimeSchema } from "../validations/schema";
 
 import { DataTable } from "@/components/data-table";
-import { AnimeEditor } from "./components/anime-editor";
+import { AnimeEditor } from "./editor-main";
 
-export default function AnimesPageWrapper() {
+export default function AnimesWrapper() {
     const [openEditor, setOpenEditor] = useState(false);
     const [editorData, setEditorData] = useState<z.infer<typeof AnimeSchema> | null>(null);
 
     const { currentParams, handlePageChange, handleLimitChange, handleSortingChange, handleFilterChange, handleSearchChange } = 
-        useUpdateParams(ANIME_DEFAULT_PARAMS, ["page", "limit", "search", "sorting", "animeType", "animeStatus"]);
-
-    const { data, isLoading, isError } = useAnimes(
+        useUpdateParams(animeDefaultParams, ["page", "limit", "search", "sorting", "animeType", "animeStatus"]);
+    const filters = [
         parseInt(currentParams.page), 
         parseInt(currentParams.limit), 
         currentParams.search,
         currentParams.sorting, 
         currentParams.animeType, 
         currentParams.animeStatus
-    );
+    ]
 
-    const { data: genresData } = useAllGenres();
-    const { data: studiosData } = useAllStudios();
+    const { data, isLoading, isError } = useAnime(filters);
+
+    // const { data: genresData } = useAllGenres();
+    // const { data: studiosData } = useAllStudios();
     
     return (
         <>
@@ -66,8 +68,8 @@ export default function AnimesPageWrapper() {
                 isOpen={openEditor} 
                 setIsOpen={setOpenEditor} 
                 data={editorData} 
-                genresData={genresData}
-                studiosData={studiosData}
+                // genresData={genresData}
+                // studiosData={studiosData}
             />
         </>
         

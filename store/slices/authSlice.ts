@@ -9,29 +9,40 @@ type User = {
 }
 
 interface AuthState {
+    accessToken: string | null;
     user: User | null;
-    isLoggedIn: boolean;
+    isAutheticated: boolean;
+    isLoading: boolean;
 }
 
 const initialState: AuthState = {
+    accessToken: null,
     user: null,
-    isLoggedIn: false,
+    isAutheticated: false,
+    isLoading: true,
 }
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        setUser: (state, action: PayloadAction<User>) => {
-            state.user = action.payload;
-            state.isLoggedIn = true;
+        setCredentials: (state, action: PayloadAction<{ accessToken: string, user: User }>) => {
+            state.accessToken = action.payload.accessToken;
+            state.user = action.payload.user;
+            state.isAutheticated = true;
+            state.isLoading = false;
         },
-        logout: (state) => {
+        clearCredentials: (state) => {
+            state.accessToken = null;
             state.user = null;
-            state.isLoggedIn = false;
+            state.isAutheticated = false;
+            state.isLoading = false;
+        },
+        setLoading: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload;
         },
     },
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { setCredentials, clearCredentials, setLoading } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,14 +1,14 @@
 import { z }from "zod/v3"
-import { AnimeSchema } from "./animes-schema"
+import { AnimeSchema } from "../validations/schema"
 import { InputType } from "@/types/input-type";
 
-type AnimesInputsType = {
+type AnimesFormType = {
     key: keyof z.infer<typeof AnimeSchema>;
     label: string;
     type: InputType;
 }
 
-export const animesInputs: AnimesInputsType[] = [
+export const animesForm: AnimesFormType[] = [
     { key: "id", label: "ID", type: "readonly" },
     { key: "anilistId", label: "Anilist ID", type: "number" },
     { key: "franchiseKey", label: "Franchise Key", type: "text" },

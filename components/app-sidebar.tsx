@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 
-import { Logo } from "./Logo"
+import { Logo } from "./icons/Logo"
 import {
     Frame,
     Gauge,

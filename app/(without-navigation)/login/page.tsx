@@ -4,12 +4,12 @@ import { useRouter } from "next/navigation";
 import { z } from "zod/v3";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Logo } from "@/components/Logo";
+import { Logo } from "@/components/icons/Logo";
 
-import { useLogin } from "@/features/login/login-api-hook";
+import { loginSchema } from "@/features/auth/validations/schema";
+import { loginForm } from "@/features/auth/config/form";
 
-import { loginSchema } from "@/features/login/login-schema";
-import { loginInputs } from "@/features/login/login-inputs";
+import { inputRenderer } from "@/hooks/input-renderer";
 
 import {
     Form,
@@ -21,10 +21,10 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { inputRenderer } from "@/hooks/input-renderer";
+import { useAuth } from "@/features/auth/hooks/use-auth";
+import { Loader } from "lucide-react";
 
 const Login02Page = () => {
-    const router = useRouter();
     const form = useForm<z.infer<typeof loginSchema>>({
         defaultValues: {
             email: "",
@@ -33,16 +33,14 @@ const Login02Page = () => {
         resolver: zodResolver(loginSchema),
     });
 
-    const { mutate } = useLogin();
+    const { login, isLoggingIn, loginError } = useAuth();
+    const router = useRouter();
 
-    const onSubmit = (data: z.infer<typeof loginSchema>) => {
-        console.log(data);
-        if (data) {
-            mutate(data, {
-                onSuccess: (token, _) => {
-                    router.replace("/");
-                }
-            });
+    const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+        try {
+            await login(data);
+            router.push('/');
+        } catch (error) {
         }
     };
 
@@ -59,7 +57,7 @@ const Login02Page = () => {
 
                 <Form {...form}>
                     <form className="w-full space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-                        {loginInputs.map(input => (
+                        {loginForm.map(input => (
                             <FormField
                                 key={input.key}
                                 control={form.control}
@@ -75,7 +73,8 @@ const Login02Page = () => {
                                 )}
                             />
                         ))}
-                        <Button type="submit" className="mt-4 w-full">
+                        <Button type="submit" className="mt-4 w-full" disabled={isLoggingIn}>
+                            {isLoggingIn && <Loader className="animate-spin"/>}
                             Login
                         </Button>
                     </form>

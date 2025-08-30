@@ -1,9 +1,5 @@
 import { SlidersHorizontal } from "lucide-react";
-import { 
-    animeTypeOptions, animeTypeLabel, 
-    animeStatusOptions, animeStatusLabel 
-} from "./animes-schema";
-
+import { animeTypeOptions, animeTypeLabel, animeStatusOptions, animeStatusLabel } from "./constants";
 
 export const filterItems = [
     {
@@ -33,12 +29,3 @@ export const filterItems = [
         ],
     }
 ];
-
-export const ANIME_DEFAULT_PARAMS = {
-    page: "1",
-    limit: "20", 
-    search: "",
-    sorting: "LATEST",
-    animeType: "ALL",
-    animeStatus: "ALL",
-} as const;

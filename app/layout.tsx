@@ -4,8 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 import { Toaster } from "@/components/ui/sonner";
 import Provider from "./provider";
-import StoreProvider from "@/store/store-provider";
-import AuthLoader from "./auth-loader";
+import ReduxProvider from "@/store/redux-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,9 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en" suppressHydrationWarning>
             <body className="light"> 
-                <StoreProvider>
+                <ReduxProvider>
                     <Provider>
-                        <AuthLoader/>
                         <ThemeProvider
                             attribute="class"
                             defaultTheme="system"
@@ -31,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <Toaster position="top-center" />
                         </ThemeProvider>
                     </Provider>
-                </StoreProvider>
+                </ReduxProvider>
             </body>
         </html>
     );

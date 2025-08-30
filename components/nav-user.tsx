@@ -29,24 +29,24 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar"
-import { useAppSelector } from "@/store/store-hook"
-import { logout } from "@/features/login/login-api"
+import { useAuth } from "@/features/auth/hooks/use-auth"
+import { useRouter } from "next/navigation"
 
-export function NavUser({
-    user,
-}: {
-    user: {
-        username: string
-        email: string
-        avatarUrl?: string
-        userRole?: string
-    } | null
-}) {
+export function NavUser() {
+    const router = useRouter();
     const { isMobile } = useSidebar();
 
-    const handleLogOut = () => {
-        logout();
-        console.log("You logged out");
+    const { logout, user, isLoading } = useAuth();
+
+    const handleLogOut = async () => {
+        await logout();
+        router.push('/login');
+    }
+
+    console.log(user);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
     }
 
     return (
@@ -64,6 +64,7 @@ export function NavUser({
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-medium">{user?.username}</span>
+                                <span className="truncate text-xs">{user?.userRole}</span>
                                 <span className="truncate text-xs">{user?.email}</span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4" />

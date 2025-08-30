@@ -7,11 +7,10 @@ import { z } from "zod/v3";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { inputRenderer } from "@/hooks/input-renderer";
 
-import { AnimeSchema } from "../animes-schema";
+import { AnimeSchema } from "../validations/schema";
 import { GenreSchema } from "@/features/genres/genres-schema";
 import { StudioSchema } from "@/features/studios/studio-schema";
-import { animeFormInputs } from "../animes-config";
-import { animesInputs } from "../animes-inputs";
+import { animesForm } from "../config/form";
 
 import { 
     Form,
@@ -92,7 +91,7 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1 min-h-0">
                 <ScrollArea className="flex-1 min-h-0">
                     <div className="space-y-3 px-2">
-                        {animesInputs.map(input => {
+                        {animesForm.map(input => {
                             return (
                                 <FormField
                                     key={input.key}

@@ -9,37 +9,7 @@ import {
     requiredNumberArray,
 } from "@/lib/schema-helper";
 
-export const animeTypeOptions = {
-    TV: "TV",
-    MOVIE: "MOVIE",
-    OVA: "OVA",
-    SPECIAL: "SPECIAL",
-    SEQUEL: "SEQUEL",
-} as const;
-
-export const animeTypeLabel = {
-    MOVIE: "Movie",
-    TV: "TV",
-    OVA: "Ova",
-    SPECIAL: "Special",
-    SEQUEL: "Sequel",
-}
-
-export const animeStatusOptions = {
-    UPCOMING: "UPCOMING",
-    ONGOING: "ONGOING",
-    COMPLETED: "COMPLETED",
-    CANCELLED: "CANCELLED",
-    HIATUS: "HIATUS",
-} as const;
-
-export const animeStatusLabel = {
-    UPCOMING: "Upcoming",
-    ONGOING: "Ongoing",
-    COMPLETED: "Completed",
-    CANCELLED: "Cancelled",
-    HIATUS: "Hiatus",
-}
+import { animeTypeOptions, animeStatusOptions } from "../config/constants";
 
 export const AnimeSchema = z.object({
     id: z.number().readonly(),

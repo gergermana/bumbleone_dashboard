@@ -3,7 +3,7 @@
 import { z } from "zod/v3";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-import { AnimeSchema } from "../animes-schema";
+import { AnimeSchema } from "../validations/schema";
 import { GenreSchema } from "@/features/genres/genres-schema";
 import { StudioSchema } from "@/features/studios/studio-schema";
 
@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/drawer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button";
-import { TabMetadata } from "./tab-metadata";
+import { TabMetadata } from "./editor-tab1";
 
 type AppDrawerProps = {
     isOpen: boolean;

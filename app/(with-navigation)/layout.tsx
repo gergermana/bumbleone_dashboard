@@ -4,7 +4,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import { Toaster } from "@/components/ui/sonner";
+import { AuthInitializer } from "@/features/auth/components/AuthInitializer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,12 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <SidebarProvider>
+        <AuthInitializer/>
         <AppSidebar variant="inset"/>
         <SidebarInset>
-        <AppHeader/>
-        <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-            {children} 
-        </main>
+            <AppHeader/>
+            <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                {children} 
+            </main>
         </SidebarInset>
     </SidebarProvider>
   );

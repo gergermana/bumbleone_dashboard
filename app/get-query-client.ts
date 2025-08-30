@@ -4,7 +4,13 @@ function makeQueryClient() {
     return new QueryClient({
         defaultOptions: {
             queries: {
-                staleTime: 60 * 1000,
+                staleTime: 60 * 1000, // 1 minute
+                retry: (failureCount, error: any) => {
+                    if (error?.response?.status === 401 || error?.response?.status === 403) {
+                        return false;
+                    }
+                    return failureCount < 3;
+                },
             },
         },
     });
