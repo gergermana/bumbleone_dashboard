@@ -11,6 +11,12 @@ const api = axios.create({
     withCredentials: true,
 });
 
+let routerInstance = null;
+
+export const setRouterInstance = (router: any) => {
+    routerInstance = router;
+}
+
 api.interceptors.request.use(
     (config) => {
         const token = store.getState().auth.accessToken;
@@ -61,8 +67,7 @@ api.interceptors.response.use(
                 }
 
                 if (window.location.pathname !== '/login') {
-                    window.location.href = '/login';    
-                    
+                    routerInstance.push('/login');
                 }
                 return Promise.reject(refreshError);
             }

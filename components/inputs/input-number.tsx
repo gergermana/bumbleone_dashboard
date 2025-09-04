@@ -5,8 +5,8 @@ import { useInterval } from "@/hooks/use-interval";
 
 import { ChevronUp, ChevronDown } from "lucide-react";
 
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 interface NumberInputProps {
     value?: number;

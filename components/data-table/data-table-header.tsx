@@ -14,7 +14,7 @@ import {
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
     DropdownMenuSeparator
-} from "./ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 
 import {
     Select,
@@ -24,7 +24,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 

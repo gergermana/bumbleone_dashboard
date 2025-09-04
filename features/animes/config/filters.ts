@@ -1,5 +1,4 @@
 import { SlidersHorizontal } from "lucide-react";
-import { animeTypeOptions, animeTypeLabel, animeStatusOptions, animeStatusLabel } from "./constants";
 
 export const filterItems = [
     {
@@ -9,10 +8,11 @@ export const filterItems = [
         icon: SlidersHorizontal,
         options: [
             { key: "ALL", label: "All" },
-            ...Object.values(animeTypeOptions).map(type => ({
-                key: type,
-                label: animeTypeLabel[type], 
-            }))
+            { key: "TV", label: "TV" },
+            { key: "MOVIE", label: "Movie"},
+            { key: "OVA", label: "Ova" },
+            { key: "SPECIAL", label: "Special" },
+            { key: "SEQUEL", label: "Sequel" },
         ],
     },
     {
@@ -22,10 +22,11 @@ export const filterItems = [
         icon: SlidersHorizontal,
         options: [
             { key: "ALL", label: "All" },
-            ...Object.values(animeStatusOptions).map(status => ({
-                key: status,
-                label: animeStatusLabel[status], 
-            }))
+            { key: "UPCOMING", label: "Upcoming" },
+            { key: "ONGOING", label: "Ongoing"},
+            { key: "COMPLETED", label: "Completed" },
+            { key: "CANCELLED", label: "Cancelled" },
+            { key: "HIATUS", label: "Hiatus" },
         ],
     }
 ];

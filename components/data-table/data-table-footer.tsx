@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 import { Separator } from "@/components/ui/separator";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import {
     Select,
     SelectContent,

@@ -1,10 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { z } from "zod/v3";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Logo } from "@/components/icons/Logo";
+import { Logo, PlanetWithRing } from "@/components/icons/Logo";
 
 import { loginSchema } from "@/features/auth/validations/schema";
 import { loginForm } from "@/features/auth/config/form";
@@ -21,8 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useAuth } from "@/features/auth/hooks/use-auth";
-import { Loader } from "lucide-react";
+import { useLogin } from "@/features/auth/hooks/use-auth-mutations";
 
 const Login02Page = () => {
     const form = useForm<z.infer<typeof loginSchema>>({
@@ -33,12 +32,12 @@ const Login02Page = () => {
         resolver: zodResolver(loginSchema),
     });
 
-    const { login, isLoggingIn, loginError } = useAuth();
+    const { mutateAsync: loginMutate, isPending: loginPending, isError: loginError } = useLogin();
     const router = useRouter();
 
     const onSubmit = async (data: z.infer<typeof loginSchema>) => {
         try {
-            await login(data);
+            await loginMutate(data);
             router.push('/dashboard');
         } catch (error) {
         }
@@ -73,8 +72,8 @@ const Login02Page = () => {
                                 )}
                             />
                         ))}
-                        <Button type="submit" className="mt-4 w-full" disabled={isLoggingIn}>
-                            {isLoggingIn && <Loader className="animate-spin"/>}
+                        <Button type="submit" className="mt-4 w-full" disabled={loginPending}>
+                            {loginPending && <PlanetWithRing className="animate-spin size-5"/>}
                             Login
                         </Button>
                     </form>

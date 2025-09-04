@@ -7,10 +7,10 @@ import { useAnime } from "../hooks/use-anime-queries";
 import { getAnimeColumns } from "../config/columns";
 import { useUpdateParams } from "@/lib/url";
 import { filterItems } from "@/features/animes/config/filters";
-import { animeDefaultParams } from "../config/constants";
+import { DEFAULT_ANIME_PARAMS } from "../config/constants";
 import { AnimeSchema } from "../validations/schema";
 
-import { DataTable } from "@/components/data-table";
+import { DataTable } from "@/components/data-table/data-table";
 import { AnimeEditor } from "./editor-main";
 
 export default function AnimesWrapper() {
@@ -18,15 +18,16 @@ export default function AnimesWrapper() {
     const [editorData, setEditorData] = useState<z.infer<typeof AnimeSchema> | null>(null);
 
     const { currentParams, handlePageChange, handleLimitChange, handleSortingChange, handleFilterChange, handleSearchChange } = 
-        useUpdateParams(animeDefaultParams, ["page", "limit", "search", "sorting", "animeType", "animeStatus"]);
-    const filters = [
-        parseInt(currentParams.page), 
-        parseInt(currentParams.limit), 
-        currentParams.search,
-        currentParams.sorting, 
-        currentParams.animeType, 
-        currentParams.animeStatus
-    ]
+        useUpdateParams(DEFAULT_ANIME_PARAMS, Object.entries(DEFAULT_ANIME_PARAMS).map(([key, _]) => key));
+
+    const filters = {
+        page: parseInt(currentParams.page), 
+        limit: parseInt(currentParams.limit), 
+        search: currentParams.search,
+        sorting: currentParams.sorting, 
+        animeType: currentParams.animeType, 
+        animeStatus: currentParams.animeStatus
+    }
 
     const { data, isLoading, isError } = useAnime(filters);
 
@@ -48,10 +49,11 @@ export default function AnimesWrapper() {
                     search: currentParams.search,
                     sorting: currentParams.sorting,
                 }}
+                // Optional
                 currentFilters={{
                     animeType: currentParams.animeType,
                     animeStatus: currentParams.animeStatus,
-                }} // Optional
+                }} 
                 handleChangeFns={{
                     handlePageChange,
                     handleLimitChange,

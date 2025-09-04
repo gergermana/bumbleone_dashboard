@@ -6,13 +6,13 @@ import { z } from "zod/v3";
 
 import { Eye, Layers, ListOrdered, SquarePen, Trash,  } from "lucide-react";
 
-import { ActionDropdown } from "@/components/action-dropdown";
+import { ActionDropdown } from "@/components/data-table/action-dropdown";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-import { animeTypeLabel, animeStatusLabel } from "./constants";
+import { ANIME_TYPES_LABELS, ANIME_STATUS_LABELS } from "./constants";
 
 export const getAnimeColumns = (
     setOpenEditor?: React.Dispatch<React.SetStateAction<boolean>>,
@@ -122,15 +122,15 @@ export const getAnimeColumns = (
             const badge = () => {
                 switch (animeType) {
                     case "MOVIE":
-                        return <Badge className="bg-red-400/10 text-red-400 font-bold">{animeTypeLabel[animeType]}</Badge>;
+                        return <Badge className="bg-red-400/10 text-red-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
                     case "TV": 
-                        return <Badge className="bg-indigo-400/10 text-indigo-400 font-bold">{animeTypeLabel[animeType]}</Badge>;
+                        return <Badge className="bg-indigo-400/10 text-indigo-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
                     case "OVA": 
-                        return <Badge className="bg-purple-400/10 text-purple-400 font-bold">{animeTypeLabel[animeType]}</Badge>;
+                        return <Badge className="bg-purple-400/10 text-purple-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
                     case "SPECIAL": 
-                        return <Badge className="bg-yellow-400/10 text-yellow-400 font-bold">{animeTypeLabel[animeType]}</Badge>;
+                        return <Badge className="bg-yellow-400/10 text-yellow-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
                     case "SEQUEL": 
-                        return <Badge className="bg-green-400/10 text-green-400 font-bold">{animeTypeLabel[animeType]}</Badge>;
+                        return <Badge className="bg-green-400/10 text-green-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
                     default: 
                         return null;
                 }
@@ -149,15 +149,15 @@ export const getAnimeColumns = (
             const badge = () => {
                 switch (animeStatus) {
                     case "UPCOMING": 
-                        return <Badge variant="outline" className="text-blue-400 py-1 w-full font-bold capitalize">{animeStatusLabel[animeStatus]}</Badge>;
+                        return <Badge variant="outline" className="text-blue-400 py-1 w-full font-bold capitalize">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
                     case "ONGOING": 
-                        return <Badge variant="outline" className="text-green-400 py-1 w-full font-bold">{animeStatusLabel[animeStatus]}</Badge>;
+                        return <Badge variant="outline" className="text-green-400 py-1 w-full font-bold">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
                     case "COMPLETED": 
-                        return <Badge variant="outline" className="text-muted-foreground py-1 w-full font-bold">{animeStatusLabel[animeStatus]}</Badge>;
+                        return <Badge variant="outline" className="text-muted-foreground py-1 w-full font-bold">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
                     case "CANCELLED":
-                        return <Badge variant="outline" className="text-red-400 py-1 w-full font-bold">{animeStatusLabel[animeStatus]}</Badge>;
+                        return <Badge variant="outline" className="text-red-400 py-1 w-full font-bold">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
                     case "HIATUS": 
-                        return <Badge variant="outline" className="text-yellow-400 py-1 w-full font-bold">{animeStatusLabel[animeStatus]}</Badge>;
+                        return <Badge variant="outline" className="text-yellow-400 py-1 w-full font-bold">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
                     default: 
                         return null;
                 }

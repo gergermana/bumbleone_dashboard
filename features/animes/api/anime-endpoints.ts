@@ -1,7 +1,7 @@
 export const ANIME_ENDPOINTS = {
-    getAll: '/animes',
-    getById: (id: string) => `/animes/${id}`,
-    create: '/animes',
-    update: (id: string) => `/animes/${id}`,
-    delete: (id: string) => `/animes/${id}`,
+    getAll: '/admin/animes',
+    getById: (id: string) => `/admin/animes/${id}`,
+    create: '/admin/animes',
+    update: (id: string) => `/admin/animes/${id}`,
+    delete: (id: string) => `/admin/animes/${id}`,
 } as const;

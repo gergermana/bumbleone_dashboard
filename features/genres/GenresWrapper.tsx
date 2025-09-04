@@ -9,7 +9,7 @@ import { getGenresColumns } from "./genres-columns";
 import { useUpdateParams } from "@/lib/url";
 import { GENRE_DEFAULT_PARAMS } from "@/configs/genre-config";
 
-import { DataTable } from "@/components/data-table";
+import { DataTable } from "@/components/data-table/data-table";
 import { AppDrawer } from "@/components/app-drawer";
 
 export type GenreTypeWithID = z.infer<typeof GenreSchema> & { id: number };

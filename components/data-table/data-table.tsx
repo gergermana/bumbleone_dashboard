@@ -6,7 +6,7 @@ import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, useReactTab
 import { DataTableHeader } from "./data-table-header";
 import { DataTableFooter } from "./data-table-footer";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { type LucideIcon } from "lucide-react";

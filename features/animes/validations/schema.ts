@@ -9,7 +9,7 @@ import {
     requiredNumberArray,
 } from "@/lib/schema-helper";
 
-import { animeTypeOptions, animeStatusOptions } from "../config/constants";
+import { ANIME_TYPES, ANIME_STATUS } from "../config/constants";
 
 export const AnimeSchema = z.object({
     id: z.number().readonly(),
@@ -22,8 +22,8 @@ export const AnimeSchema = z.object({
     titleAlternative: optionalStringArray('TitleAlternative'),
     aired: optionalString('Aired'),
     premiered: optionalString('Premiered'),
-    animeType: requiredEnum(animeTypeOptions, 'AnimeType'),
-    animeStatus: requiredEnum(animeStatusOptions, 'AnimeStatus'),
+    animeType: requiredEnum(ANIME_TYPES, 'AnimeType'),
+    animeStatus: requiredEnum(ANIME_STATUS, 'AnimeStatus'),
     coverImg: requiredUrl('CoverImg'),
     bannerImg: requiredUrl('BannerImg'),
     overview: optionalString('Overview'),

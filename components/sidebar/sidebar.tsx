@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 
-import { Logo } from "./icons/Logo"
+import { Logo } from "../icons/Logo"
 import {
     Frame,
     Gauge,
@@ -16,8 +16,8 @@ import {
     Settings,
 } from "lucide-react"
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "./nav-main"
+import { NavUser } from "./nav-user"
 import {
     Sidebar,
     SidebarContent,
@@ -30,32 +30,33 @@ import {
 } from "@/components/ui/sidebar"
 import { NavSecondary } from "./nav-secondary"
 import { useAppSelector } from "@/store/store-hook"
+import { MyWaveLoader } from "../icons/WaveLoader"
 
 const data = {
     navMain: [
         {
             title: "Dashboard",
-            url: "/",
+            url: "/dashboard",
             icon: Gauge,
         },
         {
             title: "Animes",
-            url: "/animes",
+            url: "/dashboard/animes",
             icon: TvMinimalPlay,
         },
         {
             title: "Comments",
-            url: "/comments",
+            url: "/dashboard/comments",
             icon: MessageCircle,
         },
         {
             title: "Genres",
-            url: "/genres",
+            url: "/dashboard/genres",
             icon: Shapes,
         },
         {
             title: "Studios",
-            url: "/studios",
+            url: "/dashboard/studios",
             icon: Film,
         },
     ],
@@ -87,25 +88,21 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const user = useAppSelector((state) => state.auth.user);
-  return (
-    <Sidebar collapsible="offcanvas" {...props}>
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem className="flex items-center justify-start">
-                <Link href="#" className="flex items-center flex-col gap-2">
+    return (
+        <Sidebar collapsible="offcanvas" {...props}>
+            <SidebarHeader>
+                <Link href="/dashboard" className="flex justify-start w-full">
                     <Logo className="w-44 text-foreground"/>
                 </Link>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarContent>
-            <NavMain items={data.navMain} />
-        </SidebarContent>
-        <SidebarFooter>
-            <NavSecondary items={data.navSecondary} />
-            <NavUser user={user} />
-        </SidebarFooter>
-        <SidebarRail />
-    </Sidebar>
-  )
+            </SidebarHeader>
+            <SidebarContent>
+                <NavMain items={data.navMain} />
+            </SidebarContent>
+            <SidebarFooter>
+                <NavSecondary items={data.navSecondary} />
+                <NavUser/>
+            </SidebarFooter>
+            <SidebarRail />
+        </Sidebar>
+    )
 }

@@ -5,7 +5,7 @@ import { GenreTypeWithID } from "./GenresWrapper";
 
 import { SquarePen, Trash,  } from "lucide-react";
 
-import { ActionDropdown } from "@/components/action-dropdown";
+import { ActionDropdown } from "@/components/data-table/action-dropdown";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";

@@ -2,9 +2,9 @@
 
 import { JSX } from "react";
 import { Input } from "@/components/ui/input";
-import { NumberInput } from "@/components/number-input";
-import { Combobox } from "@/components/app-combobox";
-import { ComboboxOptionsType } from "@/components/app-combobox";
+import { NumberInput } from "@/components/inputs/input-number";
+import { Combobox } from "@/components/inputs/input-combobox";
+import { ComboboxOptionsType } from "@/components/inputs/input-combobox";
 import { InputType } from "@/types/input-type";
 
 export const inputRenderer: Record<

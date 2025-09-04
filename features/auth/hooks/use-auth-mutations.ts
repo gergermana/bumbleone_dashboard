@@ -40,7 +40,6 @@ export const useLogout = () => {
             queryClient.clear();
         },
         onError: (error) => {
-            console.error('Logout error', error);
             dispatch(clearCredentials());
             queryClient.clear();
         },

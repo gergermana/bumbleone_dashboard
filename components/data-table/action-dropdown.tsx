@@ -1,6 +1,6 @@
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator,  } from "@/components/ui/dropdown-menu";
 import { EllipsisVertical, type LucideIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 export function ActionDropdown({ 
     actionsData 

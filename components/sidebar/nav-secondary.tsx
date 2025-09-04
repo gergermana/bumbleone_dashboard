@@ -7,7 +7,7 @@ import { useTheme } from "next-themes"
 
 import { Moon } from "lucide-react"
 
-import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar"
+import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { Switch } from "@/components/ui/switch"
 
 export function NavSecondary({
