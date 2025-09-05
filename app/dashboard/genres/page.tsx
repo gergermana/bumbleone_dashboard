@@ -1,34 +1,20 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getGenres } from "@/features/genres/genres-api";
 
-import GenresWrapper from "@/features/genres/GenresWrapper";
-import { GENRE_DEFAULT_PARAMS } from "@/configs/genre-config";
+import GenreWrapper from "@/features/genres/components/genre-wrapper";
 
-export default async function Animes({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
-  const queryClient = new QueryClient();
-  const params = await searchParams;
+export default async function Animes({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+    const queryClient = new QueryClient();
 
-  const page = parseInt(params.page ?? GENRE_DEFAULT_PARAMS.page);
-  const limit = parseInt(params.limit ?? GENRE_DEFAULT_PARAMS.limit);
-  const search = params.search ?? GENRE_DEFAULT_PARAMS.search;
-  const sorting = params.sorting ?? GENRE_DEFAULT_PARAMS.sorting;
-
-  await queryClient.prefetchQuery({
-    queryKey: ['genres', page, limit, search, sorting],
-    queryFn: () => getGenres(page, limit, search, sorting),
-    staleTime: 1000 * 60 * 5,
-  });
-
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="flex flex-1 flex-col">
-        <div className="@container/main flex flex-1 flex-col gap-2">
-          <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <GenresWrapper/>
-          </div>
-        </div>
-      </div>
-    </HydrationBoundary>
-    
-  );
+    return (
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <div className="flex flex-1 flex-col">
+                <div className="@container/main flex flex-1 flex-col gap-2">
+                    <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                        <GenreWrapper/>
+                    </div>
+                </div>
+            </div>
+        </HydrationBoundary>
+        
+    );
 }

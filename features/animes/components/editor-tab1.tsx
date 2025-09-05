@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { inputRenderer } from "@/hooks/input-renderer";
 
 import { AnimeSchema } from "../validations/schema";
-import { GenreSchema } from "@/features/genres/genres-schema";
+import { GenreSchema } from "@/features/genres/validations/schema";
 import { StudioSchema } from "@/features/studios/studio-schema";
 import { animesForm } from "../config/form";
 
@@ -102,7 +102,7 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
                                             <FormItem>
                                                 <FormLabel>{input.label}</FormLabel>
                                                 <FormControl>
-                                                    {inputRenderer[input.type](field, input.label)}
+                                                    {inputRenderer[input.type](field, input.label, GenreOptions)}
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

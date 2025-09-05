@@ -4,6 +4,8 @@ import { useState } from "react";
 import { z } from "zod/v3";
 
 import { useAnime } from "../hooks/use-anime-queries";
+import { useGenre } from "@/features/genres/hooks/use-genre-queries";
+
 import { getAnimeColumns } from "../config/columns";
 import { useUpdateParams } from "@/lib/url";
 import { filterItems } from "@/features/animes/config/filters";
@@ -13,7 +15,7 @@ import { AnimeSchema } from "../validations/schema";
 import { DataTable } from "@/components/data-table/data-table";
 import { AnimeEditor } from "./editor-main";
 
-export default function AnimesWrapper() {
+export default function AnimeWrapper() {
     const [openEditor, setOpenEditor] = useState(false);
     const [editorData, setEditorData] = useState<z.infer<typeof AnimeSchema> | null>(null);
 
@@ -31,8 +33,9 @@ export default function AnimesWrapper() {
 
     const { data, isLoading, isError } = useAnime(filters);
 
-    // const { data: genresData } = useAllGenres();
+    const { data: genresData } = useGenre();
     // const { data: studiosData } = useAllStudios();
+    console.log(genresData?.datalist);
     
     return (
         <>
@@ -70,7 +73,7 @@ export default function AnimesWrapper() {
                 isOpen={openEditor} 
                 setIsOpen={setOpenEditor} 
                 data={editorData} 
-                // genresData={genresData}
+                genresData={genresData?.datalist}
                 // studiosData={studiosData}
             />
         </>

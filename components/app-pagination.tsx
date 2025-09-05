@@ -80,7 +80,7 @@ export function AppPagination({ totalPages, page, onPageChange }: AppPaginationP
                     <PaginationPrevious 
                         disabled={currentPage <= 1} 
                         onClick={() => handlePageChange(currentPage - 1)}
-                        className="bg-red-600 w-[30px] sm:w-fit"
+                        className="w-[30px] sm:w-fit"
                     />
                 </PaginationItem>
                 {pageNumbers.map((pageNumber, index) => (
@@ -105,7 +105,7 @@ export function AppPagination({ totalPages, page, onPageChange }: AppPaginationP
                     <PaginationNext 
                         disabled={currentPage >= totalPages} 
                         onClick={() => handlePageChange(currentPage + 1)}
-                        className="bg-red-600 w-[30px] sm:w-fit"    
+                        className="w-[30px] sm:w-fit"    
                     />
                 </PaginationItem>
             </PaginationContent>

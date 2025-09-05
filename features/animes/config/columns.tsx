@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 import { ANIME_TYPES_LABELS, ANIME_STATUS_LABELS } from "./constants";
+import MyBadge from "@/components/app-badge";
 
 export const getAnimeColumns = (
     setOpenEditor?: React.Dispatch<React.SetStateAction<boolean>>,
@@ -72,7 +73,7 @@ export const getAnimeColumns = (
             return (
                 <Button 
                     variant="link" 
-                    className="p-0 text-foreground font-semibold cursor-pointer h-full min-w-[180px] text-start line-clamp-3 break-all whitespace-normal" 
+                    className="p-0 text-foreground cursor-pointer h-full min-w-[180px] text-start line-clamp-3 break-all whitespace-normal" 
                     onClick={() => {
                         setEditorData?.(row.original);
                         setOpenEditor?.(true);
@@ -120,20 +121,25 @@ export const getAnimeColumns = (
         cell: ({ row }) => {
             const animeType = row.original.animeType;
             const badge = () => {
+                let color: string = "";
                 switch (animeType) {
                     case "MOVIE":
-                        return <Badge className="bg-red-400/10 text-red-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
+                        color = "text-red-500";
+                        break;
                     case "TV": 
-                        return <Badge className="bg-indigo-400/10 text-indigo-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
+                        color = "text-indigo-500";
+                        break;
                     case "OVA": 
-                        return <Badge className="bg-purple-400/10 text-purple-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
+                        color = "text-purple-500";
+                        break;
                     case "SPECIAL": 
-                        return <Badge className="bg-yellow-400/10 text-yellow-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
+                        color = "text-yellow-500";
+                        break;
                     case "SEQUEL": 
-                        return <Badge className="bg-green-400/10 text-green-400 font-bold">{ANIME_TYPES_LABELS[animeType]}</Badge>;
-                    default: 
-                        return null;
+                        color = "text-green-500";
+                        break;
                 }
+                return <MyBadge variant="outline" className={{ content: color }} content={ANIME_TYPES_LABELS[animeType]}/>;
             } 
             return (
                 <div className="flex items-center">
@@ -147,20 +153,22 @@ export const getAnimeColumns = (
         cell: ({ row }) => {
             const animeStatus = row.original.animeStatus;
             const badge = () => {
+                let color: string = "";
                 switch (animeStatus) {
                     case "UPCOMING": 
-                        return <Badge variant="outline" className="text-blue-400 py-1 w-full font-bold capitalize">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
+                        color = "bg-blue-500";
+                        break;
                     case "ONGOING": 
-                        return <Badge variant="outline" className="text-green-400 py-1 w-full font-bold">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
-                    case "COMPLETED": 
-                        return <Badge variant="outline" className="text-muted-foreground py-1 w-full font-bold">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
+                        color = "bg-green-500";
+                        break;
                     case "CANCELLED":
-                        return <Badge variant="outline" className="text-red-400 py-1 w-full font-bold">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
+                        color = "bg-red-500";
+                        break;
                     case "HIATUS": 
-                        return <Badge variant="outline" className="text-yellow-400 py-1 w-full font-bold">{ANIME_STATUS_LABELS[animeStatus]}</Badge>;
-                    default: 
-                        return null;
+                        color = "bg-yellow-500";
+                        break;
                 }
+                return <MyBadge variant="outline" className={{ dot: color }} content={ANIME_STATUS_LABELS[animeStatus]} icon={true}/>;
             } 
             return (
                 <div className="flex items-center">

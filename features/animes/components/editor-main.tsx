@@ -4,7 +4,7 @@ import { z } from "zod/v3";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { AnimeSchema } from "../validations/schema";
-import { GenreSchema } from "@/features/genres/genres-schema";
+import { GenreSchema } from "@/features/genres/validations/schema";
 import { StudioSchema } from "@/features/studios/studio-schema";
 
 import { X } from "lucide-react";

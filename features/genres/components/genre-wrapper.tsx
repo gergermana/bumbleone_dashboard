@@ -2,33 +2,33 @@
 
 import { useState } from "react";
 import { z } from "zod/v3";
-import { GenreSchema } from "@/features/genres/genres-schema";
+import { GenreSchema } from "@/features/genres/validations/schema";
 
-import { useGenres } from "./genres-api-hook";
-import { getGenresColumns } from "./genres-columns";
+import { useGenre } from "../hooks/use-genre-queries";
+import { getGenresColumns } from "../config/columns";
 import { useUpdateParams } from "@/lib/url";
-import { GENRE_DEFAULT_PARAMS } from "@/configs/genre-config";
+import { DEFAULT_GENRE_PARAMS } from "../config/constants";
 
 import { DataTable } from "@/components/data-table/data-table";
 import { AppDrawer } from "@/components/app-drawer";
 
 export type GenreTypeWithID = z.infer<typeof GenreSchema> & { id: number };
 
-export default function GenresWrapper() {
+export default function GenreWrapper() {
     const [openEditor, setOpenEditor] = useState(false);
     const [editorData, setEditorData] = useState<GenreTypeWithID | null>(null);
 
     const { currentParams, handlePageChange, handleLimitChange, handleSearchChange, handleSortingChange } = 
-        useUpdateParams(GENRE_DEFAULT_PARAMS, ["page", "limit", "search", "sorting"]);
+        useUpdateParams(DEFAULT_GENRE_PARAMS, Object.entries(DEFAULT_GENRE_PARAMS).map(([key, _]) => key));
 
-    const { data, isLoading, isError } = useGenres(
-        parseInt(currentParams.page), 
-        parseInt(currentParams.limit), 
-        currentParams.search,
-        currentParams.sorting, 
-    );
+    const filters = {
+        page: parseInt(currentParams.page), 
+        limit: parseInt(currentParams.limit), 
+        search: currentParams.search,
+        sorting: currentParams.sorting, 
+    }
 
-    console.log(data);
+    const { data, isLoading, isError } = useGenre(filters);
     
     return (
         <>

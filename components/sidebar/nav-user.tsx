@@ -1,5 +1,11 @@
 "use client";
 
+import { useRouter } from "nextjs-toploader/app";
+import { useLogout } from "@/features/auth/hooks/use-auth-mutations";
+import { useProfile } from "@/hooks/use-profile";
+
+import CardProfile from "../card-profile";
+
 import {
     BadgeCheck,
     Bell,
@@ -8,12 +14,6 @@ import {
     LogOut,
     Sparkles,
 } from "lucide-react";
-
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-} from "@/components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -29,11 +29,6 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar";
-import { useRouter } from "nextjs-toploader/app";
-import { useLogout } from "@/features/auth/hooks/use-auth-mutations";
-import { useProfile } from "@/hooks/use-profile";
-import { Skeleton } from "../ui/skeleton";
-import CardProfile from "../card-profile";
 
 export function NavUser() {
     const router = useRouter();

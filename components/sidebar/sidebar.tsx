@@ -31,6 +31,7 @@ import {
 import { NavSecondary } from "./nav-secondary"
 import { useAppSelector } from "@/store/store-hook"
 import { MyWaveLoader } from "../icons/WaveLoader"
+import ThemeSwitcher from "../theme-switcher"
 
 const data = {
     navMain: [
@@ -97,10 +98,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />
+                <NavSecondary items={data.navSecondary} className="mt-auto"/>
             </SidebarContent>
             <SidebarFooter>
-                <NavSecondary items={data.navSecondary} />
                 <NavUser/>
+                <ThemeSwitcher/> 
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table";
-import { GenreTypeWithID } from "./GenresWrapper";
+import { GenreTypeWithID } from "../components/genre-wrapper";
 
 import { SquarePen, Trash,  } from "lucide-react";
 
