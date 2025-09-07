@@ -1,4 +1,4 @@
-export const GENRES_ENDPOINTS = {
+export const GENRE_ENDPOINTS = {
     getAll: '/admin/genres',
     getById: (id: string) => `/admin/genres/${id}`,
     create: '/admin/genres',

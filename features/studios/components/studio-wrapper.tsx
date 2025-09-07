@@ -1,25 +1,23 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { z } from "zod/v3";
-import { GenreSchema } from "@/features/genres/validations/schema";
-
-import { useGenre } from "../hooks/use-genre-queries";
-import { getGenresColumns } from "../config/columns";
+import { StudioSchema } from "../validations/studio-schema";
+import { DEFAULT_Studio_PARAMS } from "../config/constants";
 import { useUpdateParams } from "@/lib/url";
-import { DEFAULT_GENRE_PARAMS } from "../config/constants";
-
-import { DataTable } from "@/components/data-table/data-table";
+import { useStudio } from "../hooks/use-studio-queries";
 import { AppDrawer } from "@/components/app-drawer";
+import { getStudioColumns } from "../config/columns";
+import { DataTable } from "@/components/data-table/data-table";
 
-export type GenreTypeWithID = z.infer<typeof GenreSchema>;
+export type StudioType = z.infer<typeof StudioSchema>;
 
-export default function GenreWrapper() {
+export default function StudioWrapper() {
     const [openEditor, setOpenEditor] = useState(false);
-    const [editorData, setEditorData] = useState<GenreTypeWithID | null>(null);
+    const [editorData, setEditorData] = useState<StudioType | null>(null);
 
     const { currentParams, handlePageChange, handleLimitChange, handleSearchChange, handleSortingChange } = 
-        useUpdateParams(DEFAULT_GENRE_PARAMS, Object.entries(DEFAULT_GENRE_PARAMS).map(([key, _]) => key));
+        useUpdateParams(DEFAULT_Studio_PARAMS, Object.entries(DEFAULT_Studio_PARAMS).map(([key, _]) => key));
 
     const filters = {
         page: parseInt(currentParams.page), 
@@ -28,14 +26,14 @@ export default function GenreWrapper() {
         sorting: currentParams.sorting, 
     }
 
-    const { data, isLoading, isError } = useGenre(filters);
-    
+    const { data, isLoading, isError } = useStudio(filters);
+
     return (
         <>
             <DataTable
                 data={data?.datalist || []}
                 total={data?.total}
-                getColumns={getGenresColumns}
+                getColumns={getStudioColumns}
                 isLoading={isLoading}
                 isError={isError}
                 currentParams={{
@@ -44,6 +42,7 @@ export default function GenreWrapper() {
                     search: currentParams.search,
                     sorting: currentParams.sorting,
                 }}
+                // Optional
                 handleChangeFns={{
                     handlePageChange,
                     handleLimitChange,
@@ -57,6 +56,5 @@ export default function GenreWrapper() {
             />
             <AppDrawer isOpen={openEditor} setIsOpen={setOpenEditor} data={editorData}/>
         </>
-        
     );
 }
