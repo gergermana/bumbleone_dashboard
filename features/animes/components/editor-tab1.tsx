@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod/v3";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { inputRenderer } from "@/hooks/input-renderer";
+import { inputRenderer } from "@/hooks/inputRenderer";
 
-import { AnimeSchema } from "../validations/schema";
-import { GenreSchema } from "@/features/genres/validations/schema";
-import { StudioSchema } from "@/features/studios/studio-schema";
-import { animesForm } from "../config/form";
+import { AnimeSchema } from "../validations/animeSchema";
+import { GenreSchema } from "@/features/genres/validations/genreSchema";
+import { StudioSchema } from "@/features/studios/validations/studioSchema";
 
 import { 
     Form,
@@ -24,28 +23,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { DrawerFooter } from "@/components/ui/drawer";
 import { toast } from "sonner";
-
-const defaultAnime: z.infer<typeof AnimeSchema> = {
-    id: 0,
-    anilistId: undefined,
-    franchiseKey: "",
-    franchiseOrder: undefined,
-    titleEnglish: "",
-    slug: "",
-    titleJapanese: "",
-    titleAlternative: [],
-    aired: "",
-    premiered: "",
-    animeType: "TV",
-    animeStatus: "ONGOING",
-    coverImg: "",
-    bannerImg: "",
-    overview: "",
-    genres: [],
-    studios: [],
-    createdAt: "",
-    updatedAt: "",
-};
+import useAnimeForm from "../hooks/useAnimeForm";
 
 interface TabMetadataProps {
     data: z.infer<typeof AnimeSchema> | null;
@@ -54,13 +32,13 @@ interface TabMetadataProps {
 }
 
 export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps) {
-    const GenreOptions = useMemo(() => genresData?.map((genre: { id: number, name: string }) => ({ id: genre.id, name: genre.name })), [genresData]);
-    const StudioOptions = useMemo(() => studiosData?.map((studio: { id: number, name: string }) => ({ id: studio.id, name: studio.name })), [studiosData]);
-
+    const formConfig = useAnimeForm();
     const form = useForm<z.input<typeof AnimeSchema>, any, z.output<typeof AnimeSchema>>({
         resolver: zodResolver(AnimeSchema),
-        defaultValues: defaultAnime,
+        defaultValues: data || {},
     });
+
+    console.log(data);
 
     useEffect(() => {
         if (!data) return;
@@ -71,8 +49,9 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
             ...data,
             genres: defaultGenres,
             studios: defaultStudios,
-        })
-    }, [data]);
+        });
+
+    }, [data, form]);
 
     const onSubmit = (data: z.infer<typeof AnimeSchema>) => {
         console.log(data);
@@ -91,7 +70,7 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1 min-h-0">
                 <ScrollArea className="flex-1 min-h-0">
                     <div className="space-y-3 px-2">
-                        {animesForm.map(input => {
+                        {formConfig.map(input => {
                             return (
                                 <FormField
                                     key={input.key}
@@ -102,7 +81,7 @@ export function TabMetadata({ data, genresData, studiosData }: TabMetadataProps)
                                             <FormItem>
                                                 <FormLabel>{input.label}</FormLabel>
                                                 <FormControl>
-                                                    {inputRenderer[input.type](field, input.label, GenreOptions)}
+                                                    {inputRenderer[input.type](field, input.label, input.options)}
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

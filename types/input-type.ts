@@ -4,4 +4,5 @@ export type InputType =
 | "combobox" 
 | "readonly" 
 | "email" 
-| "password";
+| "password"
+| "select";

@@ -1,11 +1,11 @@
 "use client"
 
 import { z } from "zod/v3";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
-import { AnimeSchema } from "../validations/schema";
-import { GenreSchema } from "@/features/genres/validations/schema";
-import { StudioSchema } from "@/features/studios/studio-schema";
+import { AnimeSchema } from "../validations/animeSchema";
+import { GenreSchema } from "@/features/genres/validations/genreSchema";
+import { StudioSchema } from "@/features/studios/validations/studioSchema";
 
 import { X } from "lucide-react";
 
@@ -54,42 +54,18 @@ export function AnimeEditor({
                     </DrawerDescription>
                 </DrawerHeader>
 
-                <Tabs defaultValue="metadata" className="flex flex-col overflow-hidden w-full px-2" data-vaul-no-drag>
-                    <TabsList className="w-full">
-                        <TabsTrigger value="metadata">Metadata</TabsTrigger>
-                        <TabsTrigger value="episodes">Episodes</TabsTrigger>
-                        <TabsTrigger value="seasons">Seasons</TabsTrigger>
-                    </TabsList>
+                <TabMetadata 
+                    data={data} 
+                    genresData={genresData} 
+                    studiosData={studiosData}
+                />    
 
-                    <TabsContent value="metadata" className="flex flex-col flex-1 min-h-0">
-                        <TabMetadata 
-                            data={data} 
-                            genresData={genresData} 
-                            studiosData={studiosData}
-                        />      
-                    </TabsContent>
-
-                    {/* <TabsContent value="episodes" className="space-y-2 pb-2">
-                        {[...Array(16)].map((_, i) => (
-                            <div key={i} className="flex flex-col gap-2">
-                                <label>Episodes {i}</label>
-                                <Input type="number" defaultValue={i} />
-                            </div>
-                        ))}
-                    </TabsContent>
-
-                    <TabsContent value="seasons" className="space-y-2">
-                        {[...Array(16)].map((_, i) => (
-                            <div key={i} className="flex flex-col gap-2">
-                                <label>Seasons {i}</label>
-                                <Input type="number" defaultValue={i} />
-                            </div>
-                        ))}
-                    </TabsContent> */}
-                </Tabs>
-
-                
+                {/* <DrawerFooter className="w-full grid grid-cols-2 gap-2 px-0">
+                    <Button variant="outline" type="button" className="w-full" onClick={() => form.reset()}>Reset</Button>
+                    <Button className="w-full" type="submit">Submit</Button>
+                </DrawerFooter> */} 
             </DrawerContent>
         </Drawer>
     );
 }
+// Hey tomorrow re design and struct the editor with only relative contents. No tabs any more.

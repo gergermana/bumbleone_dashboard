@@ -1,4 +1,4 @@
-import StudioWrapper from "@/features/studios/components/studio-wrapper";
+import StudioWrapper from "@/features/studios/components/StudioWrapper";
 
 export default function Studios() {
     return (

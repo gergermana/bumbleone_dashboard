@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { AppSidebar } from "@/components/sidebar/sidebar";
-import { AppHeader } from "@/components/app-header";
+import { AppSidebar } from "@/components/AppSidebar";
+import { AppHeader } from "@/components/AppHeader";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { AuthInitializer } from "@/features/auth/components/AuthInitializer";
+import AuthProvider from "@/features/auth/components/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,9 +23,11 @@ export default function RootLayout({
         <AppSidebar variant="inset" className="px-1"/>
         <SidebarInset>
             <AppHeader/>
-            <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                {children} 
-            </main>
+            <AuthProvider>
+                <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                    {children} 
+                </main>
+            </AuthProvider>
         </SidebarInset>
     </SidebarProvider>
   );

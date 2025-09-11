@@ -1,5 +1,5 @@
 import { InputType } from "@/types/input-type"
-import { loginSchema } from "../validations/schema";
+import { loginSchema } from "../validations/authSchema";
 import { z } from "zod/v3"
 
 type LoginFormType = {

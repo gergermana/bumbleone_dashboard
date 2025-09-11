@@ -6,10 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Logo, PlanetWithRing } from "@/components/icons/Logo";
 
-import { loginSchema } from "@/features/auth/validations/schema";
+import { loginSchema } from "@/features/auth/validations/authSchema";
 import { loginForm } from "@/features/auth/config/form";
 
-import { inputRenderer } from "@/hooks/input-renderer";
+import { inputRenderer } from "@/hooks/inputRenderer";
 
 import {
     Form,
@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useLogin } from "@/features/auth/hooks/use-auth-mutations";
+import { useLogin } from "@/features/auth/hooks/useAuthMutations";
 
 const Login02Page = () => {
     const form = useForm<z.infer<typeof loginSchema>>({

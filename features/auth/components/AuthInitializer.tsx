@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from "react";
-import { useAuthCheck } from "../hooks/use-auth-queries";
+import { useAuthCheck } from "../hooks/useAuthQueries";
 import { useAppDispatch } from "@/store/store-hook";
 import { setCredentials } from "@/store/slices/authSlice";
 
