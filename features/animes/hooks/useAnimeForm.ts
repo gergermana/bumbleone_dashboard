@@ -5,24 +5,25 @@ import { ANIME_TYPES_LABELS, ANIME_STATUS_LABELS } from "../config/animeConstant
 import { useGenre } from "@/features/genres/hooks/useGenreQueries";
 import { useStudio } from "@/features/studios/hooks/useStudioQueries";
 
+const animeTypeOptions = Object.entries(ANIME_TYPES_LABELS).map(([key, val]) => ({ key: key, label: val }));
+const animeStatusOptions = Object.entries(ANIME_STATUS_LABELS).map(([key, val]) => ({ key: key, label: val }));
+
 export type AnimeFormType = {
     key: keyof z.infer<typeof AnimeSchema>;
     label: string;
     type: InputType;
-    options?: any;
+    options?: {
+        key: number | string,
+        label: string,
+    }[];
 }
-
-const animeTypeOptions = Object.entries(ANIME_TYPES_LABELS).map(([key, val]) => ({ key: key, label: val }));
-const animeStatusOptions = Object.entries(ANIME_STATUS_LABELS).map(([key, val]) => ({ key: key, label: val }));
 
 export default function useAnimeForm() {
     const { data: genres } = useGenre();
     const { data: studios } = useStudio();
 
-    console.log("Yo i'm elon musk");
-
-    const genresData = genres?.datalist.map((g: any) => ({ id: g.id, name: g.name }));
-    const studiosData = studios?.datalist.map((s: any) => ({ id: s.id, name: s.name }));
+    const genresData = genres?.datalist.map((g: any) => ({ key: g.id, label: g.name }));
+    const studiosData = studios?.datalist.map((s: any) => ({ key: s.id, label: s.name }));
 
     const animeForm: AnimeFormType[] = [
         { key: "id", label: "ID", type: "readonly" },

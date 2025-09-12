@@ -32,7 +32,7 @@ const Login02Page = () => {
         resolver: zodResolver(loginSchema),
     });
 
-    const { mutateAsync: loginMutate, isPending: loginPending, isError: loginError } = useLogin();
+    const { mutateAsync: loginMutate, isPending: loginPending } = useLogin();
     const router = useRouter();
 
     const onSubmit = async (data: z.infer<typeof loginSchema>) => {

@@ -9,8 +9,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
 interface NumberInputProps {
-    value?: number;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value?: number | null;
+    onChange?: (value: number | null) => void;
     onBlur?: () => void;
     step?: number;
     min?: number;
@@ -24,24 +24,24 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             const val = e.target.value;
             if (val === "" || val === null || val === undefined) {
-                onChange?.({ target: { value: null } } as any);
+                onChange?.(null);
             } else {
-                onChange?.({ target: { value: Number(val) } } as any);
+                onChange?.(Number(val));
             }
         }
 
         const handleIncrement = () => {
-            if (typeof value === 'string' || value === null) return onChange?.({ target: { value: 0 }} as any);
+            if (typeof value === 'string' || value === null) return onChange?.(0);
             let next = value ? value + step : 0 + step;
             if (max !== undefined) next = Math.min(next, max);
-            onChange?.({ target: { value: parseFloat(next.toFixed(2)) } } as any);
+            onChange?.(parseFloat(next.toFixed(2)));
         };
 
         const handleDecrement = () => {
-            if (typeof value === 'string' || value === null) return onChange?.({ target: { value: 0 }} as any);
+            if (typeof value === 'string' || value === null) return onChange?.(0);
             let next = value ? value - step : 0 - step;
             if (min !== undefined) next = Math.max(next, min);
-            onChange?.({ target: { value: parseFloat(next.toFixed(2)) } } as any);
+            onChange?.(parseFloat(next.toFixed(2)));
         }
 
         const handleButtonChange = (direction: 'up' | 'down' | null) => {

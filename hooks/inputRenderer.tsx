@@ -16,7 +16,7 @@ export const inputRenderer: Record<
     number: (field) => <NumberInput {...field} min={0} />,
 
     combobox: (field, label, options) => (
-        <Combobox label={label} defaultOptions={field.value ?? ""} onChange={field.onChange} options={options} />
+        <Combobox label={label} value={field.value ?? ""} onChange={field.onChange} options={options} />
     ),
 
     email: (field, label) => (

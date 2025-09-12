@@ -22,29 +22,29 @@ export type ComboboxOptionsType = {
 
 export default function MyCombobox({ 
     label, 
-    defaultOptions, 
+    value, 
     options, 
     onChange,
     ...props
 }: {
     label?: string,
-    defaultOptions: any,
+    value: number[],
     options: {
-        id: number,
-        name: string,
+        key: number,
+        label: string,
     }[],
-    onChange: any,
+    onChange: (value: number[]) => void,
 }) {
     const [open, setOpen] = useState<boolean>(false);
 
     const onSelectChange = (selectedLabel: string) => {
-        const selectedOption = options?.find(f => f.name === selectedLabel);
+        const selectedOption = options?.find(f => f.label === selectedLabel);
         if (!selectedOption) return;
 
-        const id = selectedOption.id;
-        const updated = defaultOptions.includes(id)
-            ? defaultOptions.filter((f: number) => f !== id)
-            : [...defaultOptions, id];
+        const id = selectedOption.key;
+        const updated = value.includes(id)
+            ? value.filter((f: number) => f !== id)
+            : [...value, id];
             
         onChange(updated);
     }
@@ -61,17 +61,17 @@ export default function MyCombobox({
                 {...props}
             >
                 <span className="max-w-[90%] overflow-hidden text-ellipsis break-words whitespace-normal text-start">
-                    {defaultOptions.length > 0
+                    {value.length > 0
                         ? options
-                            ?.filter((f) => defaultOptions.includes(f.id))
-                            .map((f) => f.name)
+                            ?.filter((f) => value.includes(f.key))
+                            .map((f) => f.label)
                             .join(", ")
                         : `Select ${label}...`}
                 </span>
                 <ChevronsUpDown className="opacity-50" />
             </Button>
             <CommandDialog open={open} onOpenChange={setOpen}>
-                <OptionsList defaultOptions={defaultOptions} options={options} onSelectChange={onSelectChange}/>
+                <OptionsList defaultOptions={value} options={options} onSelectChange={onSelectChange}/>
             </CommandDialog>
         </>
     );
@@ -82,10 +82,10 @@ function OptionsList({
     options, 
     onSelectChange 
 }: {
-    defaultOptions: any,
+    defaultOptions: number[],
     options: {
-        id: number,
-        name: string,
+        key: number,
+        label: string,
     }[],
     onSelectChange: (selectedValue: string) => void;
 }) {
@@ -97,15 +97,15 @@ function OptionsList({
                 <CommandGroup>
                     {options?.map((option) => (
                         <CommandItem
-                            key={option.id}
-                            value={option.name}
+                            key={option.key}
+                            value={option.label}
                             onSelect={onSelectChange}
                         >
-                            {option.name}
+                            {option.label}
                             <Check
                                 className={cn(
                                     "ml-auto",
-                                    defaultOptions.includes(option.id) ? "opacity-100" : "opacity-0"
+                                    defaultOptions.includes(option.key) ? "opacity-100" : "opacity-0"
                                 )}
                             />
                         </CommandItem>

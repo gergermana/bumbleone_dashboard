@@ -5,12 +5,11 @@ import { z } from "zod/v3";
 import { GenreSchema } from "@/features/genres/validations/genreSchema";
 
 import { useGenre } from "../hooks/useGenreQueries";
-import { getGenresColumns } from "../config/genreColumns";
+import useGenreColumns from "../hooks/useGenreColumns";
 import { useUpdateParams } from "@/lib/url";
 import { DEFAULT_GENRE_PARAMS } from "../config/genreConstants";
 
 import { DataTable } from "@/components/core";
-import { AppDrawer } from "@/components/drawer-edit";
 
 export type GenreTypeWithID = z.infer<typeof GenreSchema>;
 
@@ -28,14 +27,18 @@ export default function GenreWrapper() {
         sorting: currentParams.sorting, 
     }
 
-    const { data, isLoading, isError } = useGenre(filters);
+    const { data, isLoading } = useGenre(filters);
+    const columns = useGenreColumns({
+        setOpenEditor: setOpenEditor,
+        setEditorData: setEditorData,
+    });
     
     return (
         <>
             <DataTable
                 data={data?.datalist || []}
                 total={data?.total}
-                getColumns={getGenresColumns}
+                getColumns={columns}
                 isLoading={isLoading}
                 currentParams={{
                     page: currentParams.page,
@@ -49,12 +52,8 @@ export default function GenreWrapper() {
                     onSearchChange: handleSearchChange,
                     onSortingChange: handleSortingChange,
                 }}
-                editorProps={{
-                    setOpenEditor,
-                    setEditorData,
-                }}
             />
-            <AppDrawer isOpen={openEditor} setIsOpen={setOpenEditor} data={editorData}/>
+            {/* <AppDrawer isOpen={openEditor} setIsOpen={setOpenEditor} data={editorData}/> */}
         </>
         
     );

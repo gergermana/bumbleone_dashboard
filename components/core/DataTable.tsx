@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table as TableType, ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, useReactTable, VisibilityState } from "@tanstack/react-table";
 
 import { rowsLimitOptions, sortingOptions } from "@/configs/options-config";

@@ -3,6 +3,7 @@
 import { Skeleton } from "./ui/skeleton";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { cn } from "@/lib/utils";
+import { User } from "@/store/slices/authSlice";
 
 export default function CardProfile({ 
     user, 
@@ -10,7 +11,7 @@ export default function CardProfile({
     isLoading = false,
     endContent,
 }: { 
-    user: any, 
+    user: User, 
     className?: {
         mainWrapper?: string,
         avatar?: string,

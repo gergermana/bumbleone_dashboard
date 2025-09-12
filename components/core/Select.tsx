@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "../ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../ui/select";
 
 export default function MySelect({ 
     label, 
@@ -13,8 +13,11 @@ export default function MySelect({
 }: { 
     label?: string, 
     value: string, 
-    onChange: any,
-    options: any, 
+    onChange: (value: string) => void,
+    options: {
+        key: string,
+        label: string,
+    }[], 
     className?: string,
 }) {
     return (
@@ -35,7 +38,7 @@ export default function MySelect({
             
             <SelectContent align="end">
                 {/* <SelectGroup> */}
-                    {options.map((option: any) => 
+                    {options.map((option) => 
                         <SelectItem 
                             key={option.key} 
                             value={option.key}

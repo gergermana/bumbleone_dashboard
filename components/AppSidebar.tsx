@@ -120,7 +120,6 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const user = useAppSelector((state) => state.auth.user);
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
@@ -240,7 +239,7 @@ function NavUser() {
     const isMobile = useIsMobile();
 
     const { user, isAutheticated, isLoading } = useProfile();
-    const { mutateAsync: logoutMutate, isPending: logoutPending, isError: logoutError } = useLogout();
+    const { mutateAsync: logoutMutate, isPending: logoutPending } = useLogout();
 
     const handleLogOut = async () => {
         await logoutMutate();

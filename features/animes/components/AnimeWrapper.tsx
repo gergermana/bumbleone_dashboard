@@ -31,7 +31,7 @@ export default function AnimeWrapper() {
         animeStatus: currentParams.animeStatus
     }
 
-    const { data, isLoading, isError, error } = useAnime(filters);
+    const { data, isLoading } = useAnime(filters);
     const formInputs = useAnimeForm();
     const columns = useAnimeColumns({
         setOpenEditor: setOpenEditor,

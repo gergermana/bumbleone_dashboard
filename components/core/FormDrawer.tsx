@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 
-import { z } from 'zod/v3';
-import { useForm } from "react-hook-form";
+import { z, ZodTypeAny } from 'zod/v3';
+import { FieldPath, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -31,8 +31,7 @@ import {
 } from "@/components/ui/form";
 import { Button } from "../ui/button";
 
-
-export default function FormDrawer({
+export default function FormDrawer<TSchema extends ZodTypeAny>({
     isOpen,
     setIsOpen,
     data,
@@ -41,22 +40,29 @@ export default function FormDrawer({
     onSubmit,
 }: {
     isOpen: boolean,
-    setIsOpen: any,
-    data: any,
-    schema: any,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    data: z.infer<TSchema> | null,
+    schema: TSchema,
     formInputs: {
-        key: string,
+        key: FieldPath<z.infer<TSchema>>,
         label: string,
         type: InputType,
-        options?: any,
+        options?: {
+            key: string | number,
+            label: string,
+        }[],
     }[],
-    onSubmit?: any,
+    onSubmit: (data: z.infer<TSchema>) => void,
 }) {
     const isMobile = useIsMobile();
 
-    const form = useForm<z.input<typeof schema>, any, z.output<typeof schema>>({
+    // const form = useForm<z.input<typeof schema>, z.output<typeof schema>>({
+    //     resolver: zodResolver(schema),
+    //     defaultValues: data ?? {} as z.infer<typeof schema>,
+    // });
+    const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
-        defaultValues: data || {},
+        defaultValues: data ?? {} as z.infer<typeof schema>,
     });
 
     useEffect(() => {
@@ -71,8 +77,6 @@ export default function FormDrawer({
         });
 
     }, [data, form]);
-
-    console.log("I'm Drawer");
 
     return (
         <Drawer 

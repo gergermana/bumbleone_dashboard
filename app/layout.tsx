@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-
-import { Toaster } from "@/components/ui/sonner";
 import Provider from "./provider";
-import ReduxProvider from "@/store/redux-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,21 +11,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en" suppressHydrationWarning>
             <body> 
-                <ReduxProvider>
-                    <Provider>
-                        <ThemeProvider
-                            attribute="class"
-                            defaultTheme="system"
-                            enableSystem
-                            disableTransitionOnChange
-                        >
-                            <div className="flex flex-1 flex-col min-h-full">
-                                {children}
-                            </div>
-                            <Toaster position="top-center" />
-                        </ThemeProvider>
-                    </Provider>
-                </ReduxProvider>
+                <Provider>
+                    <div className="flex flex-1 flex-col min-h-full">
+                        {children}
+                    </div>
+                </Provider>
             </body>
         </html>
     );
