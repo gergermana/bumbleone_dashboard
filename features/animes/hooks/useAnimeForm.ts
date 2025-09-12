@@ -5,7 +5,7 @@ import { ANIME_TYPES_LABELS, ANIME_STATUS_LABELS } from "../config/animeConstant
 import { useGenre } from "@/features/genres/hooks/useGenreQueries";
 import { useStudio } from "@/features/studios/hooks/useStudioQueries";
 
-type AnimeFormType = {
+export type AnimeFormType = {
     key: keyof z.infer<typeof AnimeSchema>;
     label: string;
     type: InputType;
@@ -18,6 +18,8 @@ const animeStatusOptions = Object.entries(ANIME_STATUS_LABELS).map(([key, val]) 
 export default function useAnimeForm() {
     const { data: genres } = useGenre();
     const { data: studios } = useStudio();
+
+    console.log("Yo i'm elon musk");
 
     const genresData = genres?.datalist.map((g: any) => ({ id: g.id, name: g.name }));
     const studiosData = studios?.datalist.map((s: any) => ({ id: s.id, name: s.name }));

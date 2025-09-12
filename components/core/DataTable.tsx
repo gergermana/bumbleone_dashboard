@@ -9,7 +9,7 @@ import { Plus, Trash } from "lucide-react";
 
 import TableColumnsFilter from "../TableColumnsFilter";
 import DataFilter, { DataFilterItemsType } from "../DataFilter";
-import { AppSearch } from "../app-search";
+import { AppSearch } from "../Search";
 import { Select, Pagination } from ".";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
@@ -29,10 +29,7 @@ export type onChangeFns = {
 interface DataTableProps<TData extends { id: number }> {
     data: TData[];
     total: number;
-    getColumns: (
-        setEditOpen?: React.Dispatch<React.SetStateAction<boolean>>,
-        setEditData?: React.Dispatch<React.SetStateAction<TData | null>>
-    ) => ColumnDef<TData>[];
+    getColumns: ColumnDef<TData>[];
     filterItems?: DataFilterItemsType[];
     isLoading: boolean;
     currentParams: {
@@ -43,10 +40,6 @@ interface DataTableProps<TData extends { id: number }> {
         filters?: Record<string, string>
     };
     onChangeFns: onChangeFns;
-    editorProps?: {
-        setOpenEditor?: React.Dispatch<React.SetStateAction<boolean>>,
-        setEditorData?: React.Dispatch<React.SetStateAction<TData | null>>,
-    };
 }
 
 export default function DataTable<TData extends { id: number }>({ 
@@ -57,13 +50,13 @@ export default function DataTable<TData extends { id: number }>({
     isLoading, 
     currentParams, 
     onChangeFns,
-    editorProps,
 }: DataTableProps<TData>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = useState({});
 
-    const columns = useMemo(() => getColumns(editorProps?.setOpenEditor, editorProps?.setEditorData), [getColumns]);
+    // const columns = useMemo(() => getColumns(editorProps?.setOpenEditor, editorProps?.setEditorData), [getColumns]);
+    const columns = getColumns;
 
     const table = useReactTable({
         data,
@@ -209,11 +202,11 @@ function DataTableHeader<TData>({
                     {table.getFilteredSelectedRowModel().rows.length} row(s) selected.
                 </div>
                 <div className="flex items-center gap-2">
-                    {/* <Select 
-                        defaultOption={currentParams.sorting} 
+                    <Select 
+                        value={currentParams.sorting} 
                         options={sortingOptions} 
                         onChange={onChangeFns.onSortingChange}
-                    /> */}
+                    />
                     {filterItems && currentParams.filters && onChangeFns.onFilterChange && 
                         <DataFilter 
                             items={filterItems} 
@@ -260,7 +253,7 @@ function DataTableFooter({
     }
     
     return (
-        <div>
+        <>
             <div className="flex items-center text-sm font-medium text-muted-foreground gap-4">
                 <div className="items-center gap-2 hidden lg:flex">
                     Page {currentParams.page} of {totalPages}
@@ -279,14 +272,14 @@ function DataTableFooter({
                 <div className="flex items-center gap-2 ml-auto">
                     <span>Rows</span>
                     <span className="hidden md:inline">Per Page</span>
-                    {/* <Select 
-                        defaultOption={currentParams.limit.toString()}
+                    <Select 
+                        value={currentParams.limit.toString()}
                         options={rowsLimitOptions}
                         onChange={(selectedVal: string) => onChangeFns.onLimitChange(parseInt(selectedVal))}
-                    /> */}
+                    />
                 </div>
             </div>
             <Pagination totalPages={totalPages} page={currentParams.page} onPageChange={onChangeFns.onPageChange}/>
-        </div>
+        </>
     );
 }

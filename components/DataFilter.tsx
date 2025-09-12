@@ -77,7 +77,7 @@ export default function DataFilter({
 
     return (
         <div className="flex items-center gap-2">
-            {/* {items?.map((filter, index) => (
+            {items?.map((filter, index) => (
                 <Select 
                     label={filter.label}
                     key={index} 
@@ -85,7 +85,7 @@ export default function DataFilter({
                     options={filter.options} 
                     onChange={(selectedValue: string) => onFilterChange?.(selectedValue, filter.type)}
                 />
-            ))} */}
+            ))}
         </div>
     );
 }
