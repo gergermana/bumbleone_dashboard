@@ -5,14 +5,26 @@ import { Table as TableType, ColumnDef, ColumnFiltersState, flexRender, getCoreR
 
 import { rowsLimitOptions, sortingOptions } from "@/configs/options-config";
 
-import { Plus, Trash } from "lucide-react";
+import { Plus, Trash, Columns2, ChevronDown } from "lucide-react";
 
-import TableColumnsFilter from "../TableColumnsFilter";
 import DataFilter, { DataFilterItemsType } from "../DataFilter";
 import { AppSearch } from "../Search";
-import { Select, Pagination } from ".";
+import { Select, Pagination, NumberInput } from ".";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { 
+    Table, 
+    TableBody, 
+    TableCell, 
+    TableHead, 
+    TableHeader, 
+    TableRow 
+} from "../ui/table";
+import { 
+    DropdownMenu, 
+    DropdownMenuTrigger, 
+    DropdownMenuContent, 
+    DropdownMenuCheckboxItem
+} from "../ui/dropdown-menu";
 import { Skeleton } from "../ui/skeleton";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
@@ -110,7 +122,7 @@ export default function DataTable<TData extends { id: number }>({
                     </TableHeader>
                     <TableBody className="**:data-[slot=table-cell]:first:w-16">
                         {isLoading ? (
-                            [...Array(currentParams.limit)].map((_, rowIndex) => (
+                            [...Array(Number(currentParams.limit))].map((_, rowIndex) => (
                                 <TableRow key={rowIndex}>
                                     {columns.map((_, colIndex) => (
                                         <TableCell key={colIndex} className="px-4 h-14">
@@ -177,7 +189,7 @@ function DataTableHeader<TData>({
         <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
                 <AppSearch search={currentParams.search} onSearchChange={onChangeFns.onSearchChange}/>
-                <TableColumnsFilter table={table}/>
+                <ColumnsFilter table={table}/>
                 <Button 
                     variant="outline" 
                     size="sm" 
@@ -219,6 +231,46 @@ function DataTableHeader<TData>({
         </div>
     );
 }
+
+function ColumnsFilter<TData>({
+    table,
+}: {
+    table: TableType<TData>,
+}) {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="ml-auto">
+                    <Columns2/>
+                    <span className="hidden xl:inline">Customize Columns</span>
+                    <span className="hidden sm:inline xl:hidden">Columns</span>
+                    <ChevronDown />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                {table
+                    .getAllColumns()
+                    .filter((column) => column.getCanHide())
+                    .map((column) => {
+                        return (
+                            <DropdownMenuCheckboxItem
+                                key={column.id}
+                                className="capitalize"
+                                checked={column.getIsVisible()}
+                                onCheckedChange={(value) =>
+                                    column.toggleVisibility(!!value)
+                                }
+                                onSelect={(e) => e.preventDefault()}
+                            >
+                                {column.id}
+                            </DropdownMenuCheckboxItem>
+                        )
+                    })
+                }
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+} 
 
 function DataTableFooter({ 
     total, 
@@ -276,10 +328,11 @@ function DataTableFooter({
                         value={currentParams.limit.toString()}
                         options={rowsLimitOptions}
                         onChange={(selectedVal: string) => onChangeFns.onLimitChange(parseInt(selectedVal))}
+                        size="sm"
                     />
                 </div>
             </div>
-            <Pagination totalPages={totalPages} page={currentParams.page} onPageChange={onChangeFns.onPageChange}/>
+            <Pagination totalPages={totalPages} page={Number(currentParams.page)} onPageChange={onChangeFns.onPageChange}/>
         </>
     );
 }

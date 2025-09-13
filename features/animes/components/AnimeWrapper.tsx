@@ -20,7 +20,7 @@ export default function AnimeWrapper() {
     const [editorData, setEditorData] = useState<z.infer<typeof AnimeSchema> | null>(null);
 
     const { currentParams, handlePageChange, handleLimitChange, handleSortingChange, handleFilterChange, handleSearchChange } = 
-        useUpdateParams(DEFAULT_ANIME_PARAMS, Object.entries(DEFAULT_ANIME_PARAMS).map(([key, _]) => key));
+        useUpdateParams(DEFAULT_ANIME_PARAMS);
 
     const filters = {
         page: parseInt(currentParams.page), 
@@ -79,7 +79,7 @@ export default function AnimeWrapper() {
             <FormDrawer
                 isOpen={openEditor}
                 setIsOpen={setOpenEditor}
-                data={editorData}
+                data={editorData ?? null}
                 schema={AnimeSchema}
                 formInputs={formInputs}
                 onSubmit={handleSubmit}

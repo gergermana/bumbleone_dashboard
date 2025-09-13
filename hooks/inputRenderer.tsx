@@ -32,6 +32,6 @@ export const inputRenderer: Record<
     ),
 
     select: (field, _, options) => (
-        <Select value={field.value ?? ""} onChange={field.onChange} options={options} className="w-full min-h-9"/>
+        <Select value={field.value ?? ""} onChange={field.onChange} options={options} size="default" className="w-full"/>
     )
 };

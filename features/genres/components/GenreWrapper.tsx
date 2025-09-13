@@ -18,7 +18,7 @@ export default function GenreWrapper() {
     const [editorData, setEditorData] = useState<GenreTypeWithID | null>(null);
 
     const { currentParams, handlePageChange, handleLimitChange, handleSearchChange, handleSortingChange } = 
-        useUpdateParams(DEFAULT_GENRE_PARAMS, Object.entries(DEFAULT_GENRE_PARAMS).map(([key, _]) => key));
+        useUpdateParams(DEFAULT_GENRE_PARAMS);
 
     const filters = {
         page: parseInt(currentParams.page), 

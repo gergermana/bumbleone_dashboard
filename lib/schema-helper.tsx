@@ -8,7 +8,7 @@ export const requiredString = (fieldName: string) =>
     .max(255, "Too long, must be at most 255 characters")
 
 // Optional String
-export const optionalString = (fieldName: string) => 
+export const optionalString = () => 
     z.preprocess(
         (val) => (typeof val === 'string' && val.trim() === '' ? null : val),
         z.string()
@@ -73,7 +73,7 @@ export const requiredUrl = (fieldName: string) =>
     .max(255, "Too long, must be at most 255 characters")
 
 // Optional Url
-export const optionalUrl = (fieldName: string) =>
+export const optionalUrl = () =>
     z.preprocess(
         (val) => (typeof val === 'string' && val.trim() === '' ? null : val),
         z.string()

@@ -11,7 +11,7 @@ export default function CardProfile({
     isLoading = false,
     endContent,
 }: { 
-    user: User, 
+    user: User | null, 
     className?: {
         mainWrapper?: string,
         avatar?: string,

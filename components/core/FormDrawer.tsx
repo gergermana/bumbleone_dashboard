@@ -67,8 +67,8 @@ export default function FormDrawer<TSchema extends ZodTypeAny>({
 
     useEffect(() => {
         if (!data) return;
-        const defaultGenres = data?.genres?.map((genre: any) => genre.id) ?? [];
-        const defaultStudios = data?.studios?.map((studio: any) => studio.id) ?? [];
+        const defaultGenres = data?.genres?.map((genre: { id: number }) => genre.id) ?? [];
+        const defaultStudios = data?.studios?.map((studio: { id: number }) => studio.id) ?? [];
 
         form.reset({ 
             ...data,

@@ -8,6 +8,7 @@ export default function MySelect({
     value, 
     onChange, 
     options, 
+    size = "default",
     className,
     ...props 
 }: { 
@@ -18,6 +19,7 @@ export default function MySelect({
         key: string,
         label: string,
     }[], 
+    size?: "sm" | "default";
     className?: string,
 }) {
     return (
@@ -27,7 +29,7 @@ export default function MySelect({
             onValueChange={onChange}
         >
             <SelectTrigger
-                size="sm"
+                size={size}
                 id="view-selector"
                 className={cn("", className)}
                 {...props}

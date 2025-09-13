@@ -36,19 +36,3 @@ export const DEFAULT_ANIME_PARAMS = {
     animeType: "ALL",
     animeStatus: "ALL",
 } as const;
-
-// export const animeTypeLabel = {
-//     MOVIE: "Movie",
-//     TV: "TV",
-//     OVA: "Ova",
-//     SPECIAL: "Special",
-//     SEQUEL: "Sequel",
-// } as const;
-
-// export const animeStatusLabel = {
-//     UPCOMING: "Upcoming",
-//     ONGOING: "Ongoing",
-//     COMPLETED: "Completed",
-//     CANCELLED: "Cancelled",
-//     HIATUS: "Hiatus",
-// } as const;

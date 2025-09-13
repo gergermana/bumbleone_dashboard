@@ -5,7 +5,7 @@ import { StudioType } from "../components/StudioWrapper";
 
 import { SquarePen, Trash,  } from "lucide-react";
 
-import { ActionDropdown } from "@/components/data-table/DataTableActions";
+import { ActionDropdown } from "@/components/ActionsMenu";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";

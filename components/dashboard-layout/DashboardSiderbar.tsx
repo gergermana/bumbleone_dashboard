@@ -8,10 +8,10 @@ import { useLogout } from "@/features/auth/hooks/useAuthMutations";
 import { useProfile } from "@/hooks/useProfile";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-import CardProfile from "./ProfileCard";
-import ThemeSwitcher from "./ThemeSwitcher";
+import CardProfile from "../ProfileCard";
+import ThemeSwitcher from "../ThemeSwitcher";
 
-import { Logo } from "./icons/Logo";
+import { Logo } from "../icons/Logo";
 import {
     type LucideIcon,
     ChevronRight,
@@ -56,8 +56,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAppSelector } from "@/store/store-hook";
-
 
 import {
     Collapsible,
@@ -119,7 +117,7 @@ const data = {
     ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function DashboardSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>

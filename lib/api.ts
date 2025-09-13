@@ -1,7 +1,6 @@
 import { clearCredentials, setCredentials } from '@/store/slices/authSlice';
 import { store } from '@/store/store';
 import axios from 'axios';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { toast } from 'sonner';
 
 const publicEndpoints = ['/auth/login'];
@@ -11,12 +10,6 @@ const api = axios.create({
     baseURL: `${apiBaseUrl}`,
     withCredentials: true,
 });
-
-// let routerInstance = null;
-
-// export const setRouterInstance = (router: any) => {
-//     routerInstance = router;
-// }
 
 api.interceptors.request.use(
     (config) => {
@@ -67,9 +60,9 @@ api.interceptors.response.use(
                     toast.error(message);
                 }
 
-                if (window.location.pathname !== '/login') {
+                // if (window.location.pathname !== '/login') {
                     // routerInstance.push('/login');
-                }
+                // }
                 return Promise.reject(refreshError);
             }
         }

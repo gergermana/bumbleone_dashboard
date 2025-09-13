@@ -15,12 +15,12 @@ import React from "react";
 
 interface AppPaginationProps{
     totalPages: number;
-    page: string;
+    page: number;
     onPageChange: (newPage: number) => void;
 }
 
 export default function MyPagination({ totalPages, page, onPageChange }: AppPaginationProps) {
-    const currentPage = parseInt(page);
+    // const currentPage = parseInt(page);
     const boundaries = 1;
     const siblings = 1;
 
@@ -40,8 +40,8 @@ export default function MyPagination({ totalPages, page, onPageChange }: AppPagi
             return range(1, totalPages);
         }
 
-        const leftSiblingIndex = Math.max(currentPage - siblings, 1);
-        const rightSiblingIndex = Math.min(currentPage + siblings, totalPages);
+        const leftSiblingIndex = Math.max(page - siblings, 1);
+        const rightSiblingIndex = Math.min(page + siblings, totalPages);
 
         const shouldShowLeftDots = leftSiblingIndex > boundaries + 2;
         const shouldShowRightDots = rightSiblingIndex < totalPages - boundaries - 1;
@@ -71,15 +71,15 @@ export default function MyPagination({ totalPages, page, onPageChange }: AppPagi
             '...',
             ...range(totalPages - boundaries + 1, totalPages)
             ];
-    }, [currentPage, totalPages, siblings, boundaries]);
+    }, [page, totalPages, siblings, boundaries]);
 
     return (
         <Pagination>
             <PaginationContent className="select-none">
                 <PaginationItem>
                     <PaginationPrevious 
-                        disabled={currentPage <= 1} 
-                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={page <= 1} 
+                        onClick={() => handlePageChange(page - 1)}
                         className="w-[30px] sm:w-fit"
                     />
                 </PaginationItem>
@@ -92,7 +92,7 @@ export default function MyPagination({ totalPages, page, onPageChange }: AppPagi
                         ) : (
                             <PaginationItem className="cursor-default">
                                 <PaginationLink
-                                    isActive={pageNumber === currentPage}
+                                    isActive={pageNumber === page}
                                     onClick={() => handlePageChange(Number(pageNumber))}
                                 >
                                     {pageNumber}
@@ -103,8 +103,8 @@ export default function MyPagination({ totalPages, page, onPageChange }: AppPagi
                 ))}
                 <PaginationItem>
                     <PaginationNext 
-                        disabled={currentPage >= totalPages} 
-                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={page >= totalPages} 
+                        onClick={() => handlePageChange(page + 1)}
                         className="w-[30px] sm:w-fit"    
                     />
                 </PaginationItem>

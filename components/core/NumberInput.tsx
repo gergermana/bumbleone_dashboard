@@ -7,6 +7,7 @@ import { ChevronUp, ChevronDown } from "lucide-react";
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 interface NumberInputProps {
     value?: number | null;
@@ -15,10 +16,12 @@ interface NumberInputProps {
     step?: number;
     min?: number;
     max?: number;
+    size?: "default" | "sm";
+    className?: string,
 }
 
 const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
-    ({ value, onChange, onBlur, step = 1, min = -Infinity, max = Infinity, ...props }, ref) => {
+    ({ value, onChange, onBlur, step = 1, min = -Infinity, max = Infinity, size = "default", className, ...props }, ref) => {
         const [mouseDownDirection, setMouseDownDirection] = useState<'up' | 'down' | null>(null);
 
         const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +63,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         useInterval(() => handleButtonChange(mouseDownDirection), mouseDownDirection ? 100 : null);
 
         return(
-            <div className="flex h-9 rounded-lg">
+            <div data-size={size} className={cn("flex rounded-lg data-[size=default]:h-9 data-[size=sm]:h-8", className)}>
                 <Input 
                     type="number"
                     value={value ?? ""}
@@ -68,10 +71,10 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
                     onBlur={onBlur}
                     ref={ref}
                     step={step}
-                    className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none rounded-r-none relative"
+                    className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none rounded-r-none relative h-full"
                     {...props}
                 />
-                <div className="grid grid-rows-2 h-9 rounded-r-lg border border-input border-l-0 bg-input/30">
+                <div className="grid grid-rows-2 h-full rounded-r-lg border border-input border-l-0 bg-input/30">
                     <Button 
                         type="button" 
                         variant="ghost"
@@ -100,5 +103,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         );
     }
 )
+
+NumberInput.displayName = "NumberInput";
 
 export default NumberInput;

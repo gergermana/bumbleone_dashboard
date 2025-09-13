@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { GenreSchema } from "../validations/genreSchema";
+import { StudioSchema } from "../validations/studioSchema";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { SquarePen, Trash } from "lucide-react";
@@ -9,14 +9,14 @@ import { ActionDropdown } from "@/components/ActionsMenu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-export default function useGenreColumns({
+export default function useStudioColumns({
     setOpenEditor,
     setEditorData,
 }: {
     setOpenEditor: React.Dispatch<React.SetStateAction<boolean>>,
-    setEditorData: React.Dispatch<React.SetStateAction<z.infer<typeof GenreSchema> | null>>,
-}): ColumnDef<z.infer<typeof GenreSchema>>[] {
-    const column: ColumnDef<z.infer<typeof GenreSchema>>[] = [
+    setEditorData: React.Dispatch<React.SetStateAction<z.infer<typeof StudioSchema> | null>>,
+}): ColumnDef<z.infer<typeof StudioSchema>>[] {
+    const column: ColumnDef<z.infer<typeof StudioSchema>>[] = [
         {
             id: "select",
             header: ({ table }) => (

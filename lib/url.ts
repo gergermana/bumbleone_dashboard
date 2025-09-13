@@ -1,52 +1,46 @@
 "use client"
 
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "nextjs-toploader/app";
 import { useMemo } from "react";
 
-function getParams<T extends Record<string, string>>(
-    searchParams: URLSearchParams, 
-    defaults: T,
-): T{
-    const result = {} as T;
+type ObjectType = Record<string, string>;
 
-    Object.entries(defaults).forEach(([key, defaultValue]) => {
-        const value = searchParams.get(key) ?? defaultValue.toString();
-        
-        if (key === "page" || key === "limit") {
-            (result as any)[key] = parseInt(value);
-        } else {
-            (result as any)[key] = value;
-        }
+function getParams(
+    searchParams: URLSearchParams, 
+    defaults: ObjectType,
+): ObjectType{
+    const result: ObjectType = {};
+
+    Object.entries(defaults).forEach(([key, val]) => {
+        const value = searchParams.get(key) ?? val.toString();
+        result[key] = value
     });
 
     return result;
 }
 
-export function useUpdateParams<T extends Record<string, string>>(
-    defaults: T,
-    parameterOrder?: string[],
-) {
+export function useUpdateParams(defaults: ObjectType) {
     const searchParams = useSearchParams();
     const router = useRouter();
+    const pathName = usePathname();
 
-    const currentParams = useMemo(() => getParams(searchParams, defaults), [searchParams]);
+    const currentParams = useMemo(() => getParams(searchParams, defaults), [searchParams, defaults]);
 
     const updateParams = (updates: Record<string, string>) => {
         const params = new URLSearchParams();
 
         const allParams = { ...currentParams, ...updates };
-
-        const orderedKeys = parameterOrder || Object.keys(defaults);
+        const orderedKeys = Object.keys(defaults);
 
         orderedKeys.forEach((key) => {
-            const value = allParams[key as keyof T];
+            const value = allParams[key];
             if (value !== undefined && value !== "" && value.toString() !== defaults[key]) {
                 params.set(key, value.toString());
             }
         });
 
-        router.push(`?${params.toString()}`);
+        router.replace(`${pathName}?${params.toString()}`);
     }
 
     const handlePageChange = (newPage: number) => { 

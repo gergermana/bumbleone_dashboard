@@ -40,6 +40,7 @@ const Login02Page = () => {
             await loginMutate(data);
             router.push('/dashboard');
         } catch (error) {
+            console.log(error);
         }
     };
 
