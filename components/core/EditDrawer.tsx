@@ -1,25 +1,24 @@
 "use client";
 
-import { useEffect } from 'react';
-
-import { z, ZodTypeAny } from 'zod/v3';
-import { FieldPath, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useEffect } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { inputRenderer } from "@/hooks/inputRenderer";
+import { useForm, FieldPath } from "react-hook-form";
+
+import { boolean, z, ZodTypeAny } from "zod/v3";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { InputType } from "@/types/input-type";
+import { inputRenderer } from "@/hooks/inputRenderer";
 
 import { SquarePen, X } from "lucide-react";
 
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
 } from "@/components/ui/drawer";
 import { 
     Form,
@@ -30,17 +29,19 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Button } from "../ui/button";
+import { PlanetWithRing } from "../icons/Logo";
 
-export default function FormDrawer<TSchema extends ZodTypeAny>({
+export default function EditDrawer<TSchema extends ZodTypeAny>({
     isOpen,
     setIsOpen,
     data,
     schema,
     formInputs,
+    isPending,
     onSubmit,
 }: {
     isOpen: boolean,
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpen: () => void,
     data: z.infer<TSchema> | null,
     schema: TSchema,
     formInputs: {
@@ -52,29 +53,18 @@ export default function FormDrawer<TSchema extends ZodTypeAny>({
             label: string,
         }[],
     }[],
+    isPending: boolean,
     onSubmit: (data: z.infer<TSchema>) => void,
 }) {
     const isMobile = useIsMobile();
-
-    // const form = useForm<z.input<typeof schema>, z.output<typeof schema>>({
-    //     resolver: zodResolver(schema),
-    //     defaultValues: data ?? {} as z.infer<typeof schema>,
-    // });
-    const form = useForm<z.infer<typeof schema>>({
+        const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: data ?? {} as z.infer<typeof schema>,
     });
 
     useEffect(() => {
         if (!data) return;
-        const defaultGenres = data?.genres?.map((genre: { id: number }) => genre.id) ?? [];
-        const defaultStudios = data?.studios?.map((studio: { id: number }) => studio.id) ?? [];
-
-        form.reset({ 
-            ...data,
-            genres: defaultGenres,
-            studios: defaultStudios,
-        });
+        form.reset(data);
 
     }, [data, form]);
 
@@ -85,9 +75,10 @@ export default function FormDrawer<TSchema extends ZodTypeAny>({
             onOpenChange={setIsOpen} 
             autoFocus={isOpen}
             handleOnly={isMobile ? false : true}
+            dismissible={isPending ? false : true}
         >
             <DrawerContent>
-                <DrawerHeader className="border-b-2">
+                <DrawerHeader className="border-b-2 py-2">
                     <DrawerTitle className="flex justify-between items-center text-lg">
                         <div className="flex items-center gap-2">
                             <SquarePen/>
@@ -101,7 +92,6 @@ export default function FormDrawer<TSchema extends ZodTypeAny>({
                     </DrawerTitle>
                     <DrawerDescription className='sr-only'>Edit Anime Metadata</DrawerDescription>
                 </DrawerHeader>
-                
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="contents" data-vaul-no-drag>
                         <div className="space-y-3 overflow-y-auto px-4 py-2">
@@ -128,10 +118,12 @@ export default function FormDrawer<TSchema extends ZodTypeAny>({
                         </div>     
                         <DrawerFooter className="grid grid-cols-2">
                             <Button variant="outline" type="button" className="w-full" onClick={() => form.reset()}>Reset</Button>
-                            <Button className="w-full" type="submit">Submit</Button>
+                            <Button className="w-full" type="submit" disabled={isPending}>
+                                {isPending && <PlanetWithRing className="animate-spin size-5"/>}
+                                Submit
+                            </Button>
                         </DrawerFooter>
                     </form>
-                    
                 </Form>
             </DrawerContent>
         </Drawer>

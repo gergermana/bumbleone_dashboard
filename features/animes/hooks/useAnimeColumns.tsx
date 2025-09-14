@@ -2,7 +2,7 @@ import { z } from "zod/v3";
 import { AnimeSchema } from "../validations/animeSchema"
 import { ColumnDef } from "@tanstack/react-table";
 
-import { Eye, Layers, ListOrdered, SquarePen, Trash } from "lucide-react";
+import { Edit, Eye, Layers, ListOrdered, SquarePen, Trash } from "lucide-react";
 
 import { ActionDropdown } from "@/components/ActionsMenu";
 
@@ -13,11 +13,11 @@ import { ANIME_TYPES_LABELS, ANIME_STATUS_LABELS } from "../config/animeConstant
 import { Badge } from "@/components/core";
 
 export default function useAnimeColumns({
-    setOpenEditor,
-    setEditorData,
+    setDrawerState,
+    setDrawerData,
 }: {
-    setOpenEditor: React.Dispatch<React.SetStateAction<boolean>>,
-    setEditorData: React.Dispatch<React.SetStateAction<z.infer<typeof AnimeSchema> | null>>,
+    setDrawerState: React.Dispatch<React.SetStateAction<"closed" | "edit" | "add">>,
+    setDrawerData: React.Dispatch<React.SetStateAction<z.infer<typeof AnimeSchema> | null>>,
 }): ColumnDef<z.infer<typeof AnimeSchema>>[] {
     const column: ColumnDef<z.infer<typeof AnimeSchema>>[] = [
         {
@@ -76,8 +76,8 @@ export default function useAnimeColumns({
                         variant="link" 
                         className="p-0 text-foreground cursor-pointer h-full min-w-[180px] text-start line-clamp-3 break-all whitespace-normal" 
                         onClick={() => {
-                            setEditorData?.(row.original);
-                            setOpenEditor?.(true);
+                            setDrawerState("edit");
+                            setDrawerData(row.original);
                         }}
                     >
                             {row.original.titleEnglish}
@@ -187,9 +187,10 @@ export default function useAnimeColumns({
                             title: "Edit",
                             icon: SquarePen,
                             onClick: () => {
-                                console.log("haha");
-                                setEditorData?.(row.original);
-                                setOpenEditor?.(true);
+                                // setDrawerState({
+                                //     type: "edit",
+                                //     rowData: row.original,
+                                // });
                             },
                         },
                         {

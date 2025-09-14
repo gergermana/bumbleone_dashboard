@@ -9,7 +9,7 @@ import { Plus, Trash, Columns2, ChevronDown } from "lucide-react";
 
 import DataFilter, { DataFilterItemsType } from "../DataFilter";
 import { AppSearch } from "../Search";
-import { Select, Pagination, NumberInput } from ".";
+import { Select, Pagination } from ".";
 
 import { 
     Table, 
@@ -52,6 +52,9 @@ interface DataTableProps<TData extends { id: number }> {
         filters?: Record<string, string>
     };
     onChangeFns: onChangeFns;
+    stateProps?: {
+        setState: React.Dispatch<React.SetStateAction<"closed" | "edit" | "add">>;
+    }
 }
 
 export default function DataTable<TData extends { id: number }>({ 
@@ -62,6 +65,7 @@ export default function DataTable<TData extends { id: number }>({
     isLoading, 
     currentParams, 
     onChangeFns,
+    stateProps,
 }: DataTableProps<TData>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -99,6 +103,7 @@ export default function DataTable<TData extends { id: number }>({
                     onSortingChange: onChangeFns.onSortingChange,
                     onFilterChange: onChangeFns.onFilterChange,
                 }}
+                setState={stateProps?.setState}
             />
             <div className="overflow-hidden rounded-lg border">
                 <Table>
@@ -171,6 +176,7 @@ function DataTableHeader<TData>({
     filterItems, 
     currentParams,
     onChangeFns,
+    setState,
 }: {
     table: TableType<TData>;
     filterItems?: DataFilterItemsType[];
@@ -184,6 +190,7 @@ function DataTableHeader<TData>({
         onSortingChange: (newSorting: string) => void;
         onFilterChange?: (newFilter: string, type: string) => void;
     }
+    setState?: React.Dispatch<React.SetStateAction<"closed" | "edit" | "add">>;
 }) {
     return (
         <div className="flex flex-col gap-2">
@@ -204,9 +211,10 @@ function DataTableHeader<TData>({
                 <Button 
                     variant="outline" 
                     size="sm"
+                    onClick={() => setState?.("add")}
                 >
                     <Plus/>
-                    <span className="hidden lg:inline">Add Anime</span>
+                    <span className="hidden lg:inline">Add</span>
                 </Button>
             </div>
             <div className="flex items-center justify-between gap-2">

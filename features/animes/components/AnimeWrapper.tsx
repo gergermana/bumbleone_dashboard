@@ -11,13 +11,14 @@ import { DEFAULT_ANIME_PARAMS } from "../config/animeConstants";
 import { AnimeSchema } from "../validations/animeSchema";
 import useAnimeForm from "../hooks/useAnimeForm";
 
-import { DataTable, FormDrawer } from "@/components/core";
 import useAnimeColumns from "../hooks/useAnimeColumns";
+import { DataTable, AddDrawer, EditDrawer } from "@/components/core";
 import { toast } from "sonner";
+import { useUpdateAnimeMutation } from "../api/animeMutations";
 
 export default function AnimeWrapper() {
-    const [openEditor, setOpenEditor] = useState(false);
-    const [editorData, setEditorData] = useState<z.infer<typeof AnimeSchema> | null>(null);
+    const [drawerState, setDrawerState] = useState<"closed" | "edit" | "add">("closed");
+    const [drawerData, setDrawerData] = useState<z.infer<typeof AnimeSchema> | null>(null);
 
     const { currentParams, handlePageChange, handleLimitChange, handleSortingChange, handleFilterChange, handleSearchChange } = 
         useUpdateParams(DEFAULT_ANIME_PARAMS);
@@ -32,14 +33,22 @@ export default function AnimeWrapper() {
     }
 
     const { data, isLoading } = useAnime(filters);
+    const { mutate: updateAnimeMutate, isPending: updateAnimePending } = useUpdateAnimeMutation();
     const formInputs = useAnimeForm();
     const columns = useAnimeColumns({
-        setOpenEditor: setOpenEditor,
-        setEditorData: setEditorData,
+        setDrawerState,
+        setDrawerData,
     });
 
-    const handleSubmit = (data: z.infer<typeof AnimeSchema>) => {
+    console.log(data);
+
+    const handleAddSubmit = () => {
+        console.log("I'm add");
+    }
+
+    const handleEditSubmit = (data: z.infer<typeof AnimeSchema>) => {
         console.log(data);
+        updateAnimeMutate({ id: data.id.toString(), data });
         toast.success('Action completed successfully!', {
             style: {
                 '--normal-bg':
@@ -51,7 +60,7 @@ export default function AnimeWrapper() {
     }
     
     return (
-        <>
+        <div>
             <DataTable
                 data={data?.datalist}
                 total={data?.total}
@@ -75,15 +84,26 @@ export default function AnimeWrapper() {
                     onSortingChange: handleSortingChange,
                     onFilterChange: handleFilterChange,  //Optional
                 }}
+                stateProps={{
+                    setState: setDrawerState,
+                }}
             />
-            <FormDrawer
-                isOpen={openEditor}
-                setIsOpen={setOpenEditor}
-                data={editorData ?? null}
+            <AddDrawer
+                isOpen={drawerState === 'add'}
+                setIsOpen={() => setDrawerState('closed')}
                 schema={AnimeSchema}
                 formInputs={formInputs}
-                onSubmit={handleSubmit}
+                onSubmit={handleAddSubmit}
             />
-        </>
+            <EditDrawer
+                isOpen={drawerState === 'edit'}
+                setIsOpen={() => setDrawerState('closed')}
+                data={drawerData ?? null}
+                schema={AnimeSchema}
+                formInputs={formInputs}
+                isPending={updateAnimePending}
+                onSubmit={handleEditSubmit}
+            />
+        </div>
     );
 }
