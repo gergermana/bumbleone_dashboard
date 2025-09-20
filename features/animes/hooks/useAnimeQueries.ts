@@ -1,25 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { animeQueryOptions } from "../api/animeQueries";
+import { animeQueryOptionsClient } from "../api/animeQueries";
 import { useProfile } from "@/hooks/useProfile";
 
 export const useAnime = (filters?: any, options?: { enabled?: boolean, }) => {
-    const { isAutheticated, isLoading } = useProfile();
-
-    const shouldFetch = (options?.enabled ?? true) && isAutheticated && !isLoading;
-
     return useQuery({
-        ...animeQueryOptions.all(filters),
-        enabled: shouldFetch,
+        ...animeQueryOptionsClient.all(filters),
+        enabled: options?.enabled ?? true,
     });
 }
 
 export const useAnimeDetail = (id: string, options?: { enabled?: boolean }) => {
-    const { isAutheticated, isLoading } = useProfile();
-
-    const shouldFetch = (options?.enabled ?? true) && isAutheticated && !isLoading;
-
     return useQuery({
-        ...animeQueryOptions.detail(id),
-        enabled: shouldFetch,
+        ...animeQueryOptionsClient.detail(id),
+        enabled: options?.enabled ?? true,
     });
 }

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authApi } from "../api/authApi";
+import { authClientApi } from "../api/authApi";
 import { useDispatch } from "react-redux";
 import { clearCredentials, setCredentials } from "@/store/slices/authSlice";
 import { AxiosError } from "axios";
@@ -10,12 +10,12 @@ export const useLogin = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: authApi.login,
+        mutationFn: authClientApi.login,
         onSuccess: (data) => {
-            dispatch(setCredentials({
-                accessToken: data.accessToken,
-                user: data.user,
-            }));
+            // dispatch(setCredentials({
+            //     accessToken: data.accessToken,
+            //     user: data.user,
+            // }));
             
             toast.error(`Login Successfull, Welcome ${data.user.username}!!`);
 
@@ -34,7 +34,7 @@ export const useLogout = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: authApi.logout,
+        mutationFn: authClientApi.logout,
         onSuccess: () => {
             dispatch(clearCredentials());
             queryClient.clear();

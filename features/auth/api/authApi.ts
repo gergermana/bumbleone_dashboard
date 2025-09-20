@@ -1,7 +1,9 @@
 import api from "@/lib/api";
 import { AUTH_ENDPOINTS } from "./authEndpoints";
 
-export const authApi = {
+const API_URL = process.env.NEXT_PUBLIC_API_KEY;
+
+export const authClientApi = {
     login: async (credentials: any) => {
         const response = await api.post(AUTH_ENDPOINTS.login, credentials);
         return response.data;
@@ -12,8 +14,7 @@ export const authApi = {
     },
 
     refresh: async () => {
-        const response = await api.post(AUTH_ENDPOINTS.refresh);
-        return response.data;
+        // Client refresh
     },
 
     getProfile: async () => {
@@ -22,45 +23,29 @@ export const authApi = {
     },
 }
 
-// export async function login(params: any) {
-//     try {
-//         const res = await api.post("/auth/login", params);
-//         return res.data; 
-//     } catch (err: any) {
-//         if (err.response) {
-//             // server responded with a status other than 2xx
-//             const status = err.response.status;
-//             const message = err.response.data?.message || "Something went wrong";
+export const authServerApi = {
+    refresh: async (refreshToken: string) => {
+        try {
+            const res = await fetch(`${API_URL}${AUTH_ENDPOINTS.refresh}`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(refreshToken ? { 'Cookie': `refresh_token=${refreshToken}` } : {}),
+                },
+            })
 
-//             if (status === 401) {
-//                 throw new Error("Invalid email or password");
-//             } else {
-//                 throw new Error(message);
-//             }
-//         } else if (err.request) {
-//             // no response from server
-//             throw new Error("No response from server. Please try again.");
-//         } else {
-//             // something wrong in setting up the request
-//             throw new Error("Request error: " + err.message);
-//         }
-//     }
-// }
+            if (!res.ok) {
+                throw new Error('Token refresh failed')
+            }
 
-// export async function logout() {
-//     try {
-//         const res = await api.post("/auth/logout");
-//         return res.data;
-//     } catch (err: any) {
-//         throw new Error(err);
-//     }
-// }
-
-// export async function profile() {
-//     try {
-//         const res = await api.get("/auth/profile");
-//         return res.data;
-//     } catch (err) {
-//         throw new Error("Profile Fetch Error: " + err);
-//     }
-// }
+            const data = await res.json();
+            return {
+                access_token: data.access_token,
+                refresh_token: data.refresh_token,
+            }
+        } catch (error) {
+            console.error('Token refresh error:', error)
+            return null
+        }
+    }
+}

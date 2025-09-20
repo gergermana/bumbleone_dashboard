@@ -1,7 +1,7 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { getQueryClient } from "./get-query-client";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { getQueryClient } from "./get-query-client";
 import { useRouter } from "nextjs-toploader/app";
 
 import NextTopLoader from 'nextjs-toploader';
@@ -10,34 +10,6 @@ import { useTheme } from "next-themes";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ReduxProvider from "@/store/redux-provider";
 import { Toaster } from "@/components/ui/sonner";
-// import { configureInterceptors } from "@/lib/api";
-
-export default function Provider({ children }: { children: React.ReactNode }) {
-    const queryClient = new QueryClient();
-    const router = useRouter();
-
-    useEffect(() => {
-        // configureInterceptors(router);
-    }, [router]);
-
-    return (
-        <ReduxProvider>
-            <QueryClientProvider client={queryClient}>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <TopLoaderBasedOnTheme />
-                    {children}  
-                    <Toaster position="top-center" />
-                </ThemeProvider>
-                
-            </QueryClientProvider>
-        </ReduxProvider>
-    );
-}
 
 function TopLoaderBasedOnTheme() {
     const { theme, systemTheme } = useTheme();
@@ -53,4 +25,26 @@ function TopLoaderBasedOnTheme() {
     }, [theme, systemTheme]);
 
     return <NextTopLoader color={color} showSpinner={false} height={2} />;
+}
+
+export default function Provider({ children }: { children: React.ReactNode }) {
+    const queryClient = getQueryClient();
+    const router = useRouter();
+
+    return (
+        <ReduxProvider>
+            <QueryClientProvider client={queryClient}>    
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <TopLoaderBasedOnTheme />
+                    {children}  
+                    <Toaster position="top-center" />
+                </ThemeProvider>
+            </QueryClientProvider>
+        </ReduxProvider>
+    );
 }

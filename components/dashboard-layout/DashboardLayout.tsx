@@ -15,41 +15,41 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const { data, isLoading, isError } = useAuthCheck();
-    const { accessToken } = useAppSelector(state => state.auth);
+    // const { data, isLoading, isError } = useAuthCheck();
+    // const { accessToken } = useAppSelector(state => state.auth);
 
-    useEffect(() => {
-        if (!isLoading && !isError && data) {
-            dispatch(setCredentials({
-                accessToken: data.accessToken,
-                user: data.user,
-            }));
-        }
-    }, [data, isLoading, isError, dispatch]);
+    // useEffect(() => {
+    //     if (!isLoading && !isError && data) {
+    //         dispatch(setCredentials({
+    //             accessToken: data.accessToken,
+    //             user: data.user,
+    //         }));
+    //     }
+    // }, [data, isLoading, isError, dispatch]);
 
-    useEffect(() => {
-        if (isError) {
-            if (window.location.pathname !== '/login') {
-                router.push('/login');
-            }
-        }
-    }, [isError, router]);
+    // useEffect(() => {
+    //     if (isError) {
+    //         if (window.location.pathname !== '/login') {
+    //             router.push('/login');
+    //         }
+    //     }
+    // }, [isError, router]);
 
-    if (isLoading && !accessToken) {
-        return (
-            <SidebarProvider>
-                <DashboardSidebar variant="inset" className="px-1" />
-                <SidebarInset>
-                    <DashboardHeader />
-                    <main className="flex flex-1 flex-col gap-4 p-4 pt-0 items-center justify-center">
-                        <MyWaveLoader />
-                    </main>
-                </SidebarInset>
-            </SidebarProvider>
-        );
-    }
+    // if (isLoading && !accessToken) {
+    //     return (
+    //         <SidebarProvider>
+    //             <DashboardSidebar variant="inset" className="px-1" />
+    //             <SidebarInset>
+    //                 <DashboardHeader />
+    //                 <main className="flex flex-1 flex-col gap-4 p-4 pt-0 items-center justify-center">
+    //                     <MyWaveLoader />
+    //                 </main>
+    //             </SidebarInset>
+    //         </SidebarProvider>
+    //     );
+    // }
     
-    if (accessToken) {
+    // if (accessToken) {
         return (
             <SidebarProvider>
                 <DashboardSidebar variant="inset" className="px-1" />
@@ -61,7 +61,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 </SidebarInset>
             </SidebarProvider>
         );
-    }
+    // }
 
     return null; 
 }

@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 
 import GenreWrapper from "@/features/genres/components/GenreWrapper";
 
-export default async function Animes() {
+export default async function Genres() {
     const queryClient = new QueryClient();
 
     return (

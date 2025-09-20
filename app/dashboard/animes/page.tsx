@@ -1,10 +1,16 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 import AnimeWrapper from "@/features/animes/components/AnimeWrapper";
+import { DEFAULT_ANIME_PARAMS } from "@/features/animes/config/animeConstants";
+import { animeQueryOptionsServer } from "@/features/animes/api/animeQueries";
 
 export default async function Animes() {
     const queryClient = new QueryClient();
 
+    await queryClient.prefetchQuery({
+        ...animeQueryOptionsServer.all(DEFAULT_ANIME_PARAMS),
+    });
+    
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
             <div className="flex flex-1 flex-col">

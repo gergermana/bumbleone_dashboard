@@ -24,8 +24,8 @@ export default function AnimeWrapper() {
         useUpdateParams(DEFAULT_ANIME_PARAMS);
 
     const filters = {
-        page: parseInt(currentParams.page), 
-        limit: parseInt(currentParams.limit), 
+        page: currentParams.page, 
+        limit: currentParams.limit, 
         search: currentParams.search,
         sorting: currentParams.sorting, 
         animeType: currentParams.animeType, 
@@ -33,14 +33,13 @@ export default function AnimeWrapper() {
     }
 
     const { data, isLoading } = useAnime(filters);
+
     const { mutate: updateAnimeMutate, isPending: updateAnimePending } = useUpdateAnimeMutation();
     const formInputs = useAnimeForm();
     const columns = useAnimeColumns({
         setDrawerState,
         setDrawerData,
     });
-
-    console.log(data);
 
     const handleAddSubmit = () => {
         console.log("I'm add");

@@ -1,4 +1,4 @@
-import { animeApi } from "./animeApi";
+import { animeApiClient, animeApiServer } from "./animeApi";
 
 export const animeQueryKeys = {
     all: ['animes'] as const,
@@ -8,16 +8,24 @@ export const animeQueryKeys = {
     detail: (id: string) => [...animeQueryKeys.details(), id] as const,
 }
 
-export const animeQueryOptions = {
+export const animeQueryOptionsClient = {
     all: (filters?: any) => ({
         queryKey: animeQueryKeys.list(filters || {}),
-        queryFn: () => animeApi.getAll(filters),
+        queryFn: () => animeApiClient.getAll(filters),
         staleTime: 5 * 60 * 1000 // 5 minutes
     }),
 
     detail: (id: string) => ({
         queryKey: animeQueryKeys.detail(id),
-        queryFn: () => animeApi.getById(id),
+        queryFn: () => animeApiClient.getById(id),
+        staleTime: 5 * 60 * 1000 // 5 minutes
+    }),
+}
+
+export const animeQueryOptionsServer = {
+    all: (filters?: any) => ({
+        queryKey: animeQueryKeys.list(filters || {}),
+        queryFn: () => animeApiServer.getAll(filters),
         staleTime: 5 * 60 * 1000 // 5 minutes
     }),
 }
