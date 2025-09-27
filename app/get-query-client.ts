@@ -11,6 +11,8 @@ function makeQueryClient() {
                     }
                     return failureCount < 3;
                 },
+                refetchOnWindowFocus: false,
+                refetchOnMount: false,
             },
         },
     });

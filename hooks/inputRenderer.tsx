@@ -13,7 +13,7 @@ export const inputRenderer: Record<
 > = {
     readonly: (field) => <Input value={field.value ?? ""} readOnly className="w-full" />,
 
-    number: (field) => <NumberInput {...field} min={0} />,
+    number: (field) => <NumberInput {...field} min={0} placeholder="None"/>,
 
     combobox: (field, label, options) => (
         <Combobox label={label} value={field.value ?? ""} onChange={field.onChange} options={options} />

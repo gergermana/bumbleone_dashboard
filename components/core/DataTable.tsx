@@ -38,7 +38,7 @@ export type onChangeFns = {
     onFilterChange?: (newFilter: string, type: string) => void;
 }
 
-interface DataTableProps<TData extends { id: number }> {
+interface DataTableProps<TData, TState> {
     data: TData[];
     total: number;
     getColumns: ColumnDef<TData>[];
@@ -53,11 +53,11 @@ interface DataTableProps<TData extends { id: number }> {
     };
     onChangeFns: onChangeFns;
     stateProps?: {
-        setState: React.Dispatch<React.SetStateAction<"closed" | "edit" | "add">>;
+        setState: React.Dispatch<React.SetStateAction<TState>>;
     }
 }
 
-export default function DataTable<TData extends { id: number }>({ 
+export default function DataTable<TData, TState>({ 
     data = [], 
     total, 
     getColumns, 
@@ -66,7 +66,7 @@ export default function DataTable<TData extends { id: number }>({
     currentParams, 
     onChangeFns,
     stateProps,
-}: DataTableProps<TData>) {
+}: DataTableProps<TData, TState>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = useState({});
@@ -214,7 +214,7 @@ function DataTableHeader<TData>({
                     onClick={() => setState?.("add")}
                 >
                     <Plus/>
-                    <span className="hidden lg:inline">Add</span>
+                    <span className="hidden lg:inline">Create</span>
                 </Button>
             </div>
             <div className="flex items-center justify-between gap-2">

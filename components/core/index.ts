@@ -4,5 +4,6 @@ export { default as DataTable } from './DataTable';
 export { default as Pagination } from './Pagination';
 export { default as Combobox } from './Combobox';
 export { default as NumberInput } from './NumberInput';
-export { default as AddDrawer } from './AddDrawer';
-export { default as EditDrawer } from './EditDrawer';
+export { default as Drawer } from './Drawer';
+export { default as DropdownMenu } from './DropdownMenu';
+export { default as Form } from './Form';

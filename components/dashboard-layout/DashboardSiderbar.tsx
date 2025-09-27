@@ -46,6 +46,7 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
+    SidebarGroupLabel,
 } from "@/components/ui/sidebar";
 import {
     DropdownMenu,
@@ -71,8 +72,17 @@ const data = {
             icon: Gauge,
         },
         {
-            title: "Animes",
-            url: "/dashboard/animes",
+            title: "Movies & Series",
+            items: [
+                {
+                    title: "Franchises",
+                    url: "/dashboard/franchises",
+                },
+                {
+                    title: "Entries",
+                    url: "/dashboard/entries",
+                },
+            ],
             icon: TvMinimalPlay,
         },
         {
@@ -143,7 +153,7 @@ function NavMain({
 }: {
     items: {
         title: string
-        url: string
+        url?: string
         icon?: LucideIcon
         isActive?: boolean
         items?: {
@@ -154,7 +164,7 @@ function NavMain({
 }) {
     return (
         <SidebarGroup>
-            {/* <SidebarGroupLabel>Platform</SidebarGroupLabel> */}
+            <SidebarGroupLabel>Platform</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => item.items ? (
                     <Collapsible
@@ -189,10 +199,12 @@ function NavMain({
                 ) : (
                     <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton asChild>
-                            <Link href={item.url}>
-                                {item.icon && <item.icon />}
-                                <span>{item.title}</span>
-                            </Link>
+                            {item.url &&
+                                <Link href={item.url}>
+                                    {item.icon && <item.icon />}
+                                    <span>{item.title}</span>
+                                </Link>
+                            }
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 )
